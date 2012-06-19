@@ -4,8 +4,22 @@
 
 {% from 'import/topic.html' import topic %}
 
-<section class="span12">
+<section class="span8">
 {{ topic(question, current_user, answer_id, comment_id) }}
 </section>
+
+<setion class="span4">
+
+<section class="side-box thumbnail clearfix">
+    <header class="border-small"><h5>同类问题</h5></header>
+    {% for q in questions %}
+    <p>
+         
+    </p>
+    {% endfor%}
+</section>
+
+</section>
+
 
 {% endblock %}
