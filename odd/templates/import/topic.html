@@ -56,10 +56,18 @@
 
 {% macro normal_answer(a, current_user) %}
 <section id="answer-{{ a.id }}" class="answer thumbnail">
+
 <div id="up-{{ a.id }}" class="up thumbnail">
     <span>{{ a.up }}</span>
     <button>顶</button>
 </div>
+
+
+
+
+
+
+
 <blockquote>
     <p>{{ a.content }}</p>
     <small>
@@ -104,7 +112,6 @@
         <script>
         $(function(){
             var t = null;
-
             $('.question-tag-edit').click(function(){
                 if(t) return;
                 var edited = $(this).parents('.edited');

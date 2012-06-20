@@ -45,15 +45,18 @@ def new():
 def up():
     form = request.form
     answer_id = form.get('answer_id')
+    score = form.get('score')
     if not answer_id:
         return jsonify(errno='FAIL')
 
-    answer_up = Answer_Up(current_user.id, answer_id)
+    answer_up = Answer_Up(current_user.id, answer_id, score)
     ret = new_answer_up(answer_up)
     if ret != ANSWER_UP_ADD_OK:
         return jsonify(errno='FAIL')
 
     return jsonify(errno='SUCCESS')
+
+
 
 @mod.route('/comment', methods=['POST'])
 @login_required

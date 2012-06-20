@@ -37,13 +37,17 @@ class Answer_Up(Model):
     id = Column('id', INT, primary_key=True)
     user_id = Column('user_id', INT,  nullable=False)
     answer_id = Column('answer_id', INT,  nullable=False)
-
-    def __init__(self, user_id, answer_id):
+    score = Column('score', INT, nullable=False)
+    def __init__(self, user_id, answer_id, score):
         self.user_id = user_id
         self.answer_id = answer_id
+	self.score = score
 
     def __repr__(self):
-        return '<Answer_Up %d,%d>' % (self.user_id, self.answer_id)
+        return '<Answer_Up %d,%d,%d>' % (self.user_id, self.answer_id, self.score)
+
+
+
 
 class Comment(Model):
     __tablename__ = 'comments'
