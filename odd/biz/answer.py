@@ -19,11 +19,12 @@ def new_answer(answer):
 
 
 def new_answer_up(answer_up):
-    db_session.begin()
     au = db_session.query(Answer_Up).filter_by(answer_id=answer_up.answer_id, 
             user_id=answer_up.user_id).first()
     if au:
         return ANSWER_UP_DUPLICATE
+
+    db_session.begin()
 
     db_session.add(answer_up)
 

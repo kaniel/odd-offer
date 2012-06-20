@@ -7,7 +7,7 @@
 {% block content %}
 
 {% from 'import/user.html' import home_nav %}
-{% from 'import/topic.html' import normal_question %}
+{% from 'import/topic.html' import question_box %}
 {% from 'import/resource.html' import normal_resource %}
 
 <section class="span8">
@@ -33,7 +33,7 @@
     <div class="tab-content">
         <div class="tab-pane active" id="question-tab">
             {% for q in questions %}
-            {{ normal_question(q, current_user) }}
+            {{ question_box(q, current_user) }}
             <hr>
             {% endfor %}
     

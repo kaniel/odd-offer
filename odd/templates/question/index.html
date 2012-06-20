@@ -2,13 +2,121 @@
 
 {% block content %}
 
-{% from 'import/topic.html' import topic %}
+{% from 'import/topic.html' import question_detail, normal_answer, normal_comment %}
 
-<section class="span8">
-{{ topic(question, current_user, answer_id, comment_id) }}
+<section class="topic span8">
+{{ question_detail(question) }}
+<hr>
+
+<p>{{ question.answer_count }}个答案</p>
+<hr>
+{% for a in question.answers %}
+{{ normal_answer(a, current_user) }}
+<hr>
+{% endfor %}
+
+<form class="answer-form well" action="" method="post">
+    <input name="question_id" type="hidden" value="{{ question.id }}"/>
+    <textarea class="span6" name="content" rows="5"></textarea>
+    <input class="btn btn-primary" type="submit" value="回答"/>
+</form>
 </section>
 
-<setion class="span4">
+<script>
+$(function(){
+    $(".answer-form").submit(function(){
+        question_id = $("input[name=question_id]", this).val() 
+        if(!question_id){
+            alert("问题ID不能为空")
+            return false
+        }
+        content = $("textarea[name=content]", this).val()
+        if(!content){
+            alert("内容不能为空")
+            return false
+        }
+
+        $.ajax({
+            url:"{{ url_for('answer.new') }}",
+            type: "POST",
+            data: $(this).serialize(),
+            error: fail,
+            success: success
+        })
+        return false
+    })
+
+    $('.answer .up').click(function(){
+        aid = $(this).attr('id').split('-')[1]
+        $.ajax({
+            url:"{{ url_for('answer.up') }}",
+            type: "POST",
+            data: {"answer_id":aid},
+            error: fail,
+            success: success
+        })
+    })
+
+    $('.comment .reply').click(function(){
+        comment = $(this).parents('.comment')
+        cid = comment.attr('id').split('-')[1]
+        nickname = comment.find('.nickname').text()
+        form = comment.parent('.comments').find('.comment-form')
+        $('input[name=comment_id]',form).val(cid)
+        $('input[name=content]',form).focus().val('回复'+nickname+'：')
+    })
+
+    $('.comments .comment-form .cancel').click(function(){
+        $(this).siblings('input[name=comment_id]').val(-1)
+        $(this).siblings('input[name=content]').val('')
+    })
+
+    $('.comments .comment-form').submit(function(){
+        answer_id = $("input[name=answer_id]", this).val() 
+        if(!answer_id){
+            alert("答案ID不能为空")
+            return false
+        }
+        comment_id = $("input[name=comment_id]", this).val() 
+        if(!comment_id){
+            alert("评论ID不能为空")
+            return false
+        }
+        content = $("input[name=content]", this).val()
+        if(!content){
+            alert("内容不能为空")
+            return false
+        }
+        $.ajax({
+            url:"{{ url_for('answer.comment') }}",
+            type: "POST",
+            data: $(this).serialize(),
+            error: fail,
+            success: success
+            })
+
+        return false
+    })
+
+    function center(id){
+        $('body').animate({scrollTop: $(id).offset().top}, 0);
+    }
+
+    if({{ answer_id }} > 0){
+        if({{ comment_id }} > 0){
+            csid = "#comments-collapse-{{ answer_id }}" 
+            $(csid).collapse('show')
+            cid = "#comment-{{ comment_id }}";
+            center(cid)
+        }else{
+            aid = "#answer-{{ answer_id }}";
+            center(aid)
+        }
+    }
+})
+</script>
+
+<div class="span4">
 
 <section class="side-box thumbnail clearfix">
     <header class="border-small"><h5>同类问题</h5></header>
@@ -19,7 +127,6 @@
     {% endfor%}
 </section>
 
-</section>
-
+</div>
 
 {% endblock %}

@@ -51,12 +51,12 @@ def new_resource(resource, tags):
     return RESOURCE_ADD_OK
 
 def new_resource_download(rd):
-    db_session.begin()
     download = db_session.query(Resource_Download).filter_by(resource_id=rd.resource_id, 
             user_id=rd.user_id).first()
     if download:
         return RESOURCE_DOWNLOAD_DUPLICATE
     
+    db_session.begin()
     db_session.add(rd)
 
     resource = db_session.query(Resource).get(rd.resource_id)

@@ -19,9 +19,9 @@
 
 <section class="span4">
 <h5 class="border-medium">问题</h5>
-{% from 'import/topic.html' import normal_question %}
+{% from 'import/topic.html' import question_box %}
 {% for q in questions %}
-    {{ normal_question(q, current_user) }}
+    {{ question_box(q, current_user) }}
     <hr>
 {% endfor %}
 </section>

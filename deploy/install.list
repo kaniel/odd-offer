@@ -1,0 +1,51 @@
+ubuntu11.10
+
+/***********************************************/
+/etc/apt/sources.list 
+    cn.archive.ubuntu.com -> mirrors.163.com
+
+apt-get update
+
+git
+    ~/.gitconfig
+
+apache
+    /etc/init.d/apache2 stop
+    mv /etc/init.d/apache2 /etc/apache2
+
+nginx
+    service nginx configtest
+    service nginx start
+
+curl
+
+libs
+    build-essential libncursesw5-dev  libreadline-gplv2-dev libssl-dev libgdbm-dev libbz2-dev libc6-dev libsqlite3-dev tk-dev dpkg-dev
+    libmysqlclient16-dev
+
+pybrew
+    curl -kL http://xrl.us/pythonbrewinstall | bash
+    echo "[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc" >> ~/.bashrc
+    pybrew install 2.7.2
+    pybrew switch 2.7.2
+    pybrew venv create odd
+    pip install Flask Flask-WTF Flask-Login sqlalchemy oursql gunicorn
+
+convert
+    apt-get install imagemagick
+
+zip
+
+postfix
+    internet site
+    offerduoduo.com
+
+mailutils
+
+/***********************************************/
+release
+
+mysql
+    create database odd;
+    GRANT ALL PRIVILEGES ON `odd`.* TO 'odd'@'localhost' by IDENTIFIED BY 'odd';
+    source /home/odd/release/sql/...;

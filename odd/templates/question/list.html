@@ -6,13 +6,13 @@
 
 {% block content %}
 
-{% from 'import/topic.html' import normal_question %}
+{% from 'import/topic.html' import question_box %}
 
 <section class="span6">
     <header><h5 class="border-medium">等待回答</h5></header>
     {% for q in latest_questions %}
         {% if not q.answer_count %}
-        {{ normal_question(q, current_user) }}
+        {{ question_box(q, current_user) }}
         <hr>
         {% endif %}
     {% endfor %}
@@ -23,7 +23,7 @@
     <header><h5 class="border-medium">最新问题</h5></header>
     {% for q in latest_questions %}
         {% if q.answer_count %}
-        {{ normal_question(q, current_user) }}
+        {{ question_box(q, current_user) }}
         <hr>
         {% endif %}
     {% endfor %}

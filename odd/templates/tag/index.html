@@ -8,12 +8,12 @@
 
 <hr class="span12" style="border:white;">
 
-{% from 'import/topic.html' import normal_question %}
+{% from 'import/topic.html' import question_box %}
 
 <section class="span6">
     <header><h5 class="border-medium">问题</h5></header>
     {% for q in questions %}
-        {{ normal_question(q, current_user) }}
+        {{ question_box(q, current_user) }}
         <hr>
     {% endfor %}
 </section>
