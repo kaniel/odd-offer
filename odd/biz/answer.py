@@ -18,9 +18,10 @@ def new_answer(answer):
     return ANSWER_ADD_OK
 
 
+
 def new_answer_up(answer_up):
     au = db_session.query(Answer_Up).filter_by(answer_id=answer_up.answer_id, 
-            user_id=answer_up.user_id, score=answer_up.score).first()
+            user_id=answer_up.user_id).first()
     if au:
         return ANSWER_UP_DUPLICATE
 

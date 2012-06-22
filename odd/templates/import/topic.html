@@ -56,7 +56,6 @@
 
 {% macro normal_answer(a, current_user) %}
 <section id="answer-{{ a.id }}" class="answer thumbnail">
-
 <div id="up-{{ a.id }}" class="up thumbnail">
     <span>{{ a.up }}</span>
     <button>顶</button>
@@ -104,7 +103,6 @@
         
         <a href="javascript:;" class="question-tag-edit edit small">修改</a>
         </p>
-
         <form class="edit-form" action="{{ url_for('question.tags', id=q.id) }}" method="post" style="margin:5px 0px 10px 0px">
             <input class="edit-item" name="tags" type="text" />
             <a class="edit-cancel small" href="javascript:;">取消</a>
