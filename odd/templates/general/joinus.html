@@ -1,25 +1,9 @@
-{% extends 'layout-main.html' %}
-{% block content %}
+{% extends 'layout.html' %}
 
-<style type="text/css">
-          #email {
-                font-family:"times new roman";
-                 font-size:25px;
-                   color:white;
-                    position:absolute; top:50%;left:43%;}
+{% block row %}
 
-      
-
-</style>
-
-
-<body>
-	<div class="container">	
-		<div><img src="/static/img/intro-picture/jrwm.jpg";/></div>
-
-		<div id="email" ><a href="mailto:offerduoduo@sina.com?subject=comments" style="font-color:white">offerduoduo@sina.com</a></div>
-	</div>
-</body>
-
-
+<div style="position:relative">
+    <a style="top:420px;left:610px;" class="email" href="mailto:offerduoduo@sina.com?subject=comments" >offerduoduo@sina.com</a>
+    <img class="intro-bg" src="/static/img/intro-picture/join_us.jpg" />
+</div>
 {% endblock%}

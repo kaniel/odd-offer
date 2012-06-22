@@ -1,3 +1,43 @@
+$(function(){
+
+    $('.dropdown').hover(function(){
+        $(this).addClass('open');
+    },function(){
+        $(this).removeClass('open');
+    })
+
+    $('.editable').hover(function(){
+        $('.edit', this).fadeIn('fast');
+    },function(){
+        $('.edit', this).fadeOut('fast');
+    });
+
+    $('.editable .edit').click(function(){
+        var edited = $(this).parents('.edited');
+        var edit_form = edited.siblings('.edit-form')
+        var edited_item = $(this).siblings('.edited-item');
+        var edit_item = edit_form.find('.edit-item');
+        var edit_cancel = edit_form.find('.edit-cancel');
+
+        edited.hide('fast');
+        edit_form.show('fast');
+        edit_item.val(edited_item.text())
+        edit_cancel.click(function(){
+            edit_form.hide('fast');
+            edited.show('fast');
+        })
+    });
+
+    $('.edit-form').ajaxForm({
+        complete: success
+    });
+
+    $('.ajax-form').ajaxForm({
+        'complete': success
+    });
+});
+
+
 function trim(str){
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
@@ -116,38 +156,3 @@ function textbox(_options) {
 
     return t;
 }
-
-/*
- * editable
- * */
-$(function(){
-    $('.editable').hover(function(){
-        $('.edit', this).fadeIn('fast');
-    },function(){
-        $('.edit', this).fadeOut('fast');
-    });
-
-    $('.editable .edit').click(function(){
-        var edited = $(this).parents('.edited');
-        var edit_form = edited.siblings('.edit-form')
-        var edited_item = $(this).siblings('.edited-item');
-        var edit_item = edit_form.find('.edit-item');
-        var edit_cancel = edit_form.find('.edit-cancel');
-
-        edited.hide('fast');
-        edit_form.show('fast');
-        edit_item.val(edited_item.text())
-        edit_cancel.click(function(){
-            edit_form.hide('fast');
-            edited.show('fast');
-        })
-    });
-
-    $('.edit-form').ajaxForm({
-        complete: success
-    });
-
-    $('.ajax-form').ajaxForm({
-        'complete': success
-    });
-});
