@@ -19,13 +19,14 @@ def get_latest_tags(count, page=0):
     return db_session.query(Tag).order_by(Tag.id.desc()).limit(count).offset(page*count).all()
 
 def new_tag(tag):
-    t = db_session.query(Tag).filter_by(tag=tag.tag).first()
-    if t:
+    try:
+        db_session.begin()
+        db_session.add(tag)
+        db_session.commit()
+        return TAG_ADD_OK
+    except:
+        db_session.rollback()
         return TAG_DUPLICATE
-    db_session.begin()
-    db_session.add(tag)
-    db_session.commit()
-    return TAG_ADD_OK
 
 def new_tags(tags):
     ts = db_session.query(Tag.tag).filter(Tag.tag.in_(tags)).all()
