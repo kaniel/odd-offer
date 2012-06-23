@@ -75,3 +75,18 @@ def desc(id):
     new_tag_edit(tag_edit)
 
     return jsonify(errno='SUCCESS')
+
+@mod.route('/new', methods=['POST'])
+@login_required
+def new():
+    tag = request.form.get('tag')
+    if not tag:
+        return abort(404)
+
+    t = Tag(tag)
+    ret = new_tag(t)
+    if ret != TAG_ADD_OK:
+        fail(ret)
+        return redirect(url_for('.index', tag=tag))
+    success(ret)
+    return redirect(url_for('.index', tag=tag))

@@ -111,4 +111,4 @@ def new():
 class NewQueForm(Form):
     title = TextField(u'标题*', validators=[Required()])
     content = TextAreaField(u'内容*', validators=[Required()])
-    tags = TextField(u'标签*', validators=[Required()])
+    tags = TextField(u'Label*', validators=[Required()])

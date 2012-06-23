@@ -36,6 +36,7 @@ TAG_FOLLOW_DEL_OK = u'取消关注成功'
 REMIND_ADD_OK = u'提醒添加成功'
 REMIND_EDIT_OK = u'提醒修改成功'
 
+TAG_DUPLICATE = u'标签已存在'
 TAG_ADD_OK = u'标签添加成功'
 TAG_EDIT_OK = u'标签修改成功'
 

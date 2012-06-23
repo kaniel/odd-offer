@@ -66,11 +66,6 @@ $(function(){
         $('input[name=content]',form).focus().val('回复'+nickname+'：')
     })
 
-    $('.comments .comment-form .cancel').click(function(){
-        $(this).siblings('input[name=comment_id]').val(-1)
-        $(this).siblings('input[name=content]').val('')
-    })
-
     $('.comments .comment-form').submit(function(){
         answer_id = $("input[name=answer_id]", this).val() 
         if(!answer_id){
@@ -119,11 +114,9 @@ $(function(){
 <div class="span4">
 
 <section class="side-box thumbnail clearfix">
-    <header class="border-small"><h5>同类问题</h5></header>
-    {% for q in questions %}
-    <p>
-         
-    </p>
+    <header class="border-small"><h5>最新问题</h5></header>
+    {% for q in latest_ques %}
+        <a class="line" href="{{ url_for('question.index', id=q.id) }}">{{ q.title }}</a>   
     {% endfor%}
 </section>
 

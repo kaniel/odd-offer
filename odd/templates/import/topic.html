@@ -48,7 +48,6 @@
         <input name="comment_id" type="hidden" value="-1">
         <input name="content" type="text">
         <input type="submit" value="评论">
-        <a class="cancel" href="javascript:;">取消</a>
     </form>
 </div>
 </section>
@@ -61,12 +60,6 @@
     <button>顶</button>
 </div>
 
-
-
-
-
-
-
 <blockquote>
     <p>{{ a.content }}</p>
     <small>
@@ -78,7 +71,12 @@
 </blockquote>
 <footer>
 <a href="javascript:;" data-toggle="collapse" data-target="#comments-collapse-{{ a.id }}">
-    {{ a.comments|length }}条评论
+    {% set count = a.comments|length %}
+    {% if count %}
+    {{ count }}条评论
+    {% else %}
+    评论
+    {% endif %}
 </a>
 <span class="pull-right small">{{ a.create_time }}</span>
 <div id="comments-collapse-{{ a.id }}" class="collapse" style="margin-top:5px;height: 0px;">

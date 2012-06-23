@@ -25,11 +25,11 @@ def index():
     questions = [q for q in get_latest_questions(count) if query in q.title.lower()]
     resources = [r for r in get_latest_resources(count) if query in r.title.lower()]
 
-    return render_template('search/index.html', tags=tags, questions=questions, resources=resources)
+    return render_template('search/index.html', query=query, tags=tags, questions=questions, resources=resources)
 
 @mod.route('/tips')
 def tips():
-    tags = get_all_tags()
+    tags = get_latest_tags(100)
     ts = []
     for t in tags:
         ts.append({

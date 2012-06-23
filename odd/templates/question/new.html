@@ -24,8 +24,22 @@
     {{ form.tags.label }}
     {{ form.tags(id='tag-search') }}
     {{ error(form.errors['tags']) }}
+    <div class="help-block" sytle="width:500px height:31px" >
+        请给您的提问加上详尽的label；好的label例如:
+        <span class="tag label label-warning">University of Chicago</span>
+        <span class="tag label label-warning">化学</span>
+        
+    </div>
+    <p>
+        <a id="hat-toggle" href="javascript:;">怎么添加好的label+</a>
+        <img id="hat" class="hide" src="{{ url_for('static', filename='img/how_add_tag.jpg') }}" />    
+    </p>
+    <hr>
+    
+    <input class="btn btn-primary" type="submit" value="发布"/>
+</form>
 
-    <script>
+<script>
         $(function(){
             textbox({
                 element: '#tag-search',
@@ -33,16 +47,12 @@
                 url: "{{ url_for('tag.obj') }}",
                 format: tag_format
             });
+
+            $('#hat-toggle').click(function(){
+                $('#hat').toggle();
+            });
         })
-    </script>
-    <div class="help-block" sytle="width:500px height:31px" >
-        请给您的提问加上详尽的标签；好的标签例如:
-        <span class="tag label label-warning">University of Chicago</span>
-        <span class="tag label label-warning">化学</span>
-</div>
-<a href="javascript:;">怎么添加好的标签+</a>
-    
-<hr>
-<input class="btn btn-primary" type="submit" value="发布"/>
-</form>
+</script>
+
+
 {% endblock %}
