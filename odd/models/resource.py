@@ -34,7 +34,7 @@ class Resource(Model):
 
     def file_list(self):
         path = join(app.static_folder, 'resources', str(self.id))
-        return listdir(path)
+        return listdir(unicode(path))
         
     def __repr__(self):
         return '<Resource %r>' % self.title

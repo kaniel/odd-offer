@@ -1,13 +1,7 @@
 offerduoduo
 
-=done
-add profile
-add tag
-add gunicorn
-
 =todo
-error log and warning
-中文昵称
+insert ignore
 ajax取回结果后无需刷新
 form多值
 cache

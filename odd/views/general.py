@@ -147,7 +147,7 @@ class LoginForm(Form):
 
 class RegisterForm(Form):
     email = TextField(u'邮箱地址*', validators=[Required(), Email()])
-    nickname = TextField(u'昵称*', validators=[Required(),Regexp('[\w\d-]{2,20}')])
+    nickname = TextField(u'昵称*', validators=[Required(),Regexp(u'[\w\d\u4e00-\u9fa5]{2,20}')])
     passwd = PasswordField(u'密码*', validators=[Required(),Regexp('[\w\d-]{5,20}')])
     confirm = PasswordField(u'确认密码*', validators=[Required(), EqualTo('passwd', message=u'密码不一致')])
     agree = BooleanField(u'我已经认真阅读并同意', default=True, validators=[BeTrue(u'同意此协议才能注册')])

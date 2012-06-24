@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
 
 from os import makedirs
-from os.path import splitext, join, isdir
+from os.path import splitext, join, isdir, sep, altsep
 from subprocess import call
-
-from werkzeug import secure_filename
-
+from re import compile
 from odd import app
+
+_filename_strip_re = compile(r'[^A-Za-z0-9_.-]')
+
+def secure_filename(filename, default):
+    for s in sep, altsep:
+        if s:
+            filename = filename.replace(s, ' ')
+    filename = '_'.join(filename.split()).strip('._')
+    #filename = str(_filename_strip_re.sub('', filename))
+    if not filename:
+        filename = default
+    return filename
+
 
 def file_type(file_name):
     ext = splitext(file_name)[1][1:].lower()
@@ -42,7 +53,7 @@ def save_resource(id, files):
     if not isdir(res_path):
         makedirs(res_path)
     for f in files:
-        filename = secure_filename(f.filename)
+        filename = secure_filename(f.filename, 'file')
         f.save(join(res_path, filename))
     zip_cmd = 'cd %s && zip -r %d.zip %d'
     call(zip_cmd % (resources_path, id, id), shell=True)
