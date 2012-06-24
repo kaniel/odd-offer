@@ -53,27 +53,24 @@ def get_question_by_tag(tag):
     return [t.question for t in tags]
 
 def new_question(question, tags):
-    db_session.begin()
     new_tags(tags)
-
+    db_session.begin()
     db_session.add(question)
     db_session.commit()
 
     return QUESTION_ADD_OK
 
 def edit_question(question, tags):
-    db_session.begin()
     new_tags(tags)
-
+    db_session.begin()
     db_session.add(question)
     db_session.commit()
 
     return QUESTION_EDIT_OK
 
 def edit_question_tags(qid, tags):
-    db_session.begin()
     new_tags(tags)
-
+    db_session.begin()
     db_session.query(Question_Tag).filter_by(question_id=qid).delete()
     db_session.add_all([Question_Tag(qid,tag) for tag in tags])
     db_session.commit()

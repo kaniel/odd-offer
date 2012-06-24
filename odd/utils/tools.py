@@ -42,7 +42,7 @@ def save_resource(id, files):
     if not isdir(res_path):
         makedirs(res_path)
     for f in files:
-        filename = secure_filename(f.filename)
+        filename = f.filename #secure_filename(f.filename)
         f.save(join(res_path, filename))
     zip_cmd = 'cd %s && zip -r %d.zip %d'
     call(zip_cmd % (resources_path, id, id), shell=True)

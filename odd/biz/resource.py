@@ -42,9 +42,8 @@ def get_resource_titles(count):
     return resources
 
 def new_resource(resource, tags):
-    db_session.begin()
     new_tags(tags)
-
+    db_session.begin()
     db_session.add(resource)
     db_session.commit()
 
