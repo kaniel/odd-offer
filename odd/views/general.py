@@ -7,6 +7,7 @@ from flaskext.wtf import Form, TextField, PasswordField, BooleanField, Required,
 from odd.utils.error import *
 
 from odd.biz.user import *
+from odd.biz.tag import get_tag_by_tags
 
 mod = Blueprint('general', __name__)
 
@@ -21,7 +22,7 @@ def index():
     form = LoginForm()
     return render_template('general/login.html', form=form)
 
-@mod.route('/protocal', methods=['GET'])
+@mod.route('/protocal')
 def protocal():
     '''
     协议
@@ -30,7 +31,7 @@ def protocal():
     return render_template('general/protocal.html')
 
 
-@mod.route('/advice', methods=['GET'])
+@mod.route('/advice')
 def advice():
     '''
    宝贵意见
@@ -38,7 +39,7 @@ def advice():
  
     return render_template('general/advice.html')
 
-@mod.route('/help', methods=['GET'])
+@mod.route('/help')
 def help():
     '''
     帮助
@@ -46,7 +47,7 @@ def help():
  
     return render_template('general/help.html')
 
-@mod.route('/aboutus', methods=['GET'])
+@mod.route('/aboutus')
 def aboutus():
     '''
     关于我们
@@ -54,7 +55,7 @@ def aboutus():
  
     return render_template('general/aboutus.html')
 
-@mod.route('/joinus', methods=['GET'])
+@mod.route('/joinus')
 def joinus():
     '''
     加入我们
@@ -62,13 +63,27 @@ def joinus():
  
     return render_template('general/joinus.html')
 
-@mod.route('/poster', methods=['GET'])
+@mod.route('/poster')
 def poster():
     '''
     公告栏
     '''
  
     return render_template('general/poster.html')
+
+@mod.route('/guide')
+def guide():
+    '''
+    注册后指引
+    '''
+ 
+    major_tags = ['化学','化工','物理','生物','数学','计算机','经济','商学','统计','EE','工程学','语言课程']
+    
+    school_tags = ['harvard university','columbia university','Michigan State University', 'University of Illinois--Urbana-Champaign(UIUC)','University of Wisconsin--Madison(UWM)']
+    
+    hot_tags = ['Tofel','gre','gmat','行前准备','机票','打包','房','美国签证','美国生活']
+    
+    return render_template('general/guide.html')
 
 @mod.route('/login', methods=['GET','POST'])
 def login():

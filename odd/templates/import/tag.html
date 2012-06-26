@@ -63,7 +63,22 @@
 
 {% endmacro %}
 
-{% macro tag_box(tag) %}
+{% macro tag_box(tag, current_user) %}
+<section class="tag-box thumbnail">
+{% if current_user.tag_is_followed(tag.tag) %}
+<span class="has-follow follow-button label label-warning">已关注</span>
+{% else %}
+<button class="follow follow-button btn btn-info btn-mini hide" data-tag="{{ tag.tag }}">关注</button>
+<span class="has-follow follow-button label label-warning hide">已关注</span>
+{% endif %}
+<img src="{{ url_for('static', filename=tag.tag_photo(90)) }}" /> 
+<hr class="hr-tiny">
+<a href="{{ url_for('tag.index', tag=tag.tag) }}"><h5 class="text-center">{{ tag.tag }}</h5></a>
+</section>
+
+{% endmacro %}
+
+{% macro tag_box1(tag) %}
 <section class="tag-box thumbnail">
 <img src="{{ url_for('static', filename=tag.tag_photo(90)) }}" /> 
 <hr class="hr-tiny">

@@ -6,6 +6,7 @@ Purchase to remove copyright
 
 .textboxlist-autocomplete { 
     position: absolute; 
+    z-index: 100;
 }
 
 .textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results { 

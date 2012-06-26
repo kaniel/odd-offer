@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from time import sleep
+
 from flask import Blueprint, url_for, redirect, render_template, abort, request, jsonify
 from flask.ext.login import login_required, current_user
 
@@ -12,6 +14,13 @@ mod = Blueprint('remind', __name__, url_prefix='/remind')
 @mod.route('/', methods=['GET'])
 @login_required
 def index():
+    '''
+    while True:
+        reminds = get_unread_reminds(current_user.id)
+        if reminds:
+            break
+        sleep(5)
+    '''
     reminds = get_unread_reminds(current_user.id)
     rdicts = []
     for r in reminds:

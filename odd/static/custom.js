@@ -35,8 +35,27 @@ $(function(){
     $('.ajax-form').ajaxForm({
         'complete': success
     });
-});
 
+    $('.tag-box').hover(function(){
+        $('.follow', this).removeClass('hide');
+    },function(){
+        $('.follow', this).addClass('hide');
+    })
+
+    $('.follow').click(function(){
+        self = $(this);
+        $.ajax({
+            url: "/follow/tag/follow",
+            type: 'post',
+            data: {tag:self.attr('data-tag')},
+            success: function(data){
+                if(data.errno != 'SUCCESS') return;
+                self.siblings('.has-follow').removeClass('hide');
+                self.remove();
+            }
+        });
+    });
+});
 
 function trim(str){
     return str.replace(/(^\s*)|(\s*$)/g, "");

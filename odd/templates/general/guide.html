@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% from 'import/tag.html' import tag_box %}
+
+<section class="span12">
+<h3 class="alert alert-info">发现，关注，参与
+<form class="guide-search plain-form pull-right" action="{{ url_for('search.index') }}" method="get">
+    <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
+    <input id="guide-search" class="span3" name="query" type="text" />
+</form>
+</h3>
+<script>
+$(function(){
+    textbox({
+        element: '#guide-search',
+        url: "{{ url_for('search.tips') }}",
+        format: tip_format,
+        placeholder:'搜索：标签，问题，资源',
+        on_selected: function(value){
+            location.href = value[0];
+            return false;
+        },
+        on_new: function(value){
+            if(!value[1]) return false;
+            $('#guide-search').val(value[1]);
+            $('#guide-search').parent('form').submit();
+            return false;
+        },
+        post_result: classify,
+    });
+});
+</script>
+</section>
+<section class="span3">
+<h3 class="alert alert-success">国家地区</h3>
+{% set country_tags = ['美国','加拿大','英国','香港','波士顿','洛杉矶','纽约','芝加哥'] %}
+{% for t in getter.tags(country_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+<section class="span3">
+<h3 class="alert alert-warning">学校</h3>
+{% set school_tags = ['harvard university','columbia university','Michigan State University',
+    'University of Illinois--Urbana-Champaign(UIUC)','University of Wisconsin--Madison(UWM)'] %}
+{% for t in getter.tags(school_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+<section class="span3">
+<h3 class="alert alert-warning">专业</h3>
+{% set major_tags = ['化学','化工','物理','生物','数学','计算机','经济','商学','统计','EE','工程学','语言课程'] %}
+{% for t in getter.tags(major_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+<section class="span3">
+<h3 class="alert alert-error">热门话题</h3>
+{% set hot_tags = ['Tofel','gre','gmat','行前准备','机票','打包','房','美国签证','美国生活'] %}
+{% for t in getter.tags(hot_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+
+
+
+
+{% endblock%}

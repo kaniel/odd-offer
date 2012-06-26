@@ -14,7 +14,7 @@
 
 {% from 'import/tag.html' import tag_box %}
 {% for t in tags %}
-    {{ tag_box(t) }}
+    {{ tag_box(t, current_user) }}
     <hr>
 {% endfor %}
 

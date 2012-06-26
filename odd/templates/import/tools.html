@@ -21,7 +21,7 @@
 {% macro search() %}
 <li>
 <form class="navbar-search" action="{{ url_for('search.index') }}" method="get">
-    <img id="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
+    <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
     <input id="tip-search" class="span3" name="query" type="text" />
 </form>
 <script>
@@ -49,18 +49,6 @@ $(function(){
 </li>
 {% endmacro %}
 
-{% macro iwant() %}
-<li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown">
-        我要
-    </a>
-    <ul class="dropdown-menu">
-        <li><a href="{{ url_for('question.new') }}">提问</a></li>
-        <li><a href="{{ url_for('resource.new') }}">传资源</a></li>
-    </ul>
-</li>
-{% endmacro %}
-
 {% macro account(current_user) %}
 <li class="dropdown">
     <a href="{{ url_for('user.home')}}" class="dropdown-toggle" data-toggle="dropdown">
@@ -85,39 +73,50 @@ $(function(){
                 return;
             }
 
-            $.getJSON("{{ url_for('remind.index') }}",function(data){
-                if(data.reminds.length == 0) return;
-            
-                $('#reminds').siblings('a').addClass('label label-info')
-                $('#reminds').empty();
-                $.each(data.reminds,function(i,r){
-                    switch(r.type){
-                    case 'answer':
-                        title = '答案';
-                        content = r.answer;
-                        break;
-                    case 'comment':
-                        title = '评论';
-                        content = r.comment;
-                        break;
-                    default:
-                        return;
-                    }
-                    
-                    row = '<li><a class="remind" href="/remind/read?id='
-                            +r.id+'" style="color:#999">问题<span style="color:#7a43b6">'
-                            +r.question+'...</span>有了新的'
-                            +title+'<span style="color:#7a43b6">'
-                            +content+'...</span></a></li>';
-                    $('#reminds').append(row);
-                })
+            $.ajax({
+                url: "{{ url_for('remind.index') }}",
+                success: function(data){
+                    show_reminds(data);
+                    //setTimeout(load_reminds, 10000);
+                },
+                complete: function(){
+                    //setTimeout(load_reminds, 10000);
+                }
+            });
+        }
 
-                $('#reminds').parents('.dropdown').addClass('open');
+        function show_reminds(data){
+            if(!data.reminds.length) return;
+
+            $('#reminds').siblings('a').addClass('label label-info')
+            $('#reminds').empty();
+            $.each(data.reminds,function(i,r){
+                switch(r.type){
+                case 'answer':
+                    title = '答案';
+                    content = r.answer;
+                    break;
+                case 'comment':
+                    title = '评论';
+                    content = r.comment;
+                    break;
+                default:
+                    return;
+                }
+                
+                row = '<li><a class="remind" href="/remind/read?id='
+                        +r.id+'" style="color:#999">问题<span style="color:#7a43b6">'
+                        +r.question+'...</span>有了新的'
+                        +title+'<span style="color:#7a43b6">'
+                        +content+'...</span></a></li>';
+                $('#reminds').append(row);
             })
+
+            $('#reminds').parents('.dropdown').addClass('open');
         }
         
+        setTimeout(load_reminds, 5000);
         setInterval(load_reminds, 10000);
-        setTimeout(load_reminds, 1000);
     })
 </script>
 <li class="dropdown">

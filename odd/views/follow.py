@@ -22,7 +22,7 @@ def tag_follow():
     tag = request.form.get('tag')
     tag_follow = Tag_Follow(current_user.id, tag)
     ret = new_tag_follow(tag_follow)
-    if ret != TAG_FOLLOW_ADD_OK:
+    if not ret in [TAG_FOLLOW_ADD_OK, TAG_FOLLOW_DUPLICATE]:
         return jsonify(errno='FAIL')
 
     return jsonify(errno='SUCCESS')

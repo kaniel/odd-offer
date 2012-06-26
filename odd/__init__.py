@@ -41,6 +41,9 @@ login_manager.setup_app(app)
 login_manager.login_view = "general.login"
 login_manager.login_message = u"这个页面需要登录后才能访问"
 
+#
+# Handler
+#
 @login_manager.user_loader
 def load_user(user_id):
     return get_user_by_id(user_id)
@@ -54,6 +57,19 @@ def too_large(error):
     return render_template('413.html'), 413
 
 
+#
+# Context
+#
+from odd.biz import getter
+
+@app.context_processor
+def insert_getter():
+    return dict(getter=getter)
+
+
+#
+# Log
+#
 if not app.debug:
     import logging
     ft = logging.Formatter(app.config['ERROR_LOG_FORMAT'])

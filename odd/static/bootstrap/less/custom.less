@@ -113,6 +113,10 @@ ul.inline {
     border-right: 1px solid #eee;
 }
 
+.text-center {
+    text-align: center;    
+}
+
 /**custom**/
 #article-header{
 }
@@ -276,6 +280,11 @@ ul.inline {
 
 .tag-box {
     margin: 10px 0px;    
+    position: relative;    
+    .follow-button {
+        position: absolute;
+        right: 0px;    
+    }
 }
 
 .simple-quote {
@@ -327,6 +336,8 @@ ul.inline {
 }
 
 .navbar-search {
+    position: relative;
+
     .textboxlist-bits {
         width: 210px;
         padding-left: 26px;
@@ -336,7 +347,26 @@ ul.inline {
         width: 400px;
     }
     
-    #search-img {
+    .search-img {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+    }
+}
+
+.guide-search {
+    position: relative;
+
+    .textboxlist-bits {
+        width: 600px;
+        padding-left: 26px;
+    }
+    
+    .textboxlist-autocomplete {
+        width: 943px;
+    }
+    
+    .search-img {
         position: absolute;
         top: 2px;
         left: 2px;
@@ -359,4 +389,5 @@ ul.inline {
         z-index: -1;
     }   
 }
+
 
