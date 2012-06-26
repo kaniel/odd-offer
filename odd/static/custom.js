@@ -37,12 +37,12 @@ $(function(){
     });
 
     $('.tag-box').hover(function(){
-        $('.follow', this).removeClass('hide');
+        $('.only-follow', this).removeClass('hide');
     },function(){
-        $('.follow', this).addClass('hide');
+        $('.only-follow', this).addClass('hide');
     })
 
-    $('.follow').click(function(){
+    $('.only-follow').click(function(){
         self = $(this);
         $.ajax({
             url: "/follow/tag/follow",
@@ -55,6 +55,36 @@ $(function(){
             }
         });
     });
+    
+    $('.follow').click(function(){
+        self = $(this);
+        $.ajax({
+            url: "/follow/tag/follow",
+            type: 'post',
+            data: {tag:self.attr('data-tag')},
+            success: function(data){
+                if(data.errno != 'SUCCESS') return;
+                self.siblings('.unfollow').removeClass('hide');
+                self.addClass('hide');
+            }
+        });
+    });
+
+
+    $('.unfollow').click(function(){
+        self = $(this);
+        $.ajax({
+            url: "/follow/tag/unfollow",
+            type: 'post',
+            data: {tag:self.attr('data-tag')},
+            success: function(data){
+                if(data.errno != 'SUCCESS') return;
+                self.siblings('.follow').removeClass('hide');
+                self.addClass('hide');
+            }
+        });
+    });
+
 });
 
 function trim(str){
