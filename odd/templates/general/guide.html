@@ -3,14 +3,16 @@
 {% block content %}
 
 {% from 'import/tag.html' import tag_box %}
+<a class="pull-right" href="{{ url_for('user.home') }}">-->进入主页</a>
 
 <section class="span12">
-<h3 class="alert alert-info">发现，关注，参与
-<form class="guide-search plain-form pull-right" action="{{ url_for('search.index') }}" method="get">
-    <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
-    <input id="guide-search" class="span3" name="query" type="text" />
-</form>
-</h3>
+    <h3 class="alert alert-info">
+        发现，关注，参与
+        <form class="guide-search plain-form pull-right" action="{{ url_for('search.index') }}" method="get">
+            <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
+            <input id="guide-search" class="span3" name="query" type="text" />
+        </form>
+    </h3>
 <script>
 $(function(){
     textbox({
@@ -33,6 +35,7 @@ $(function(){
 });
 </script>
 </section>
+
 <section class="span3">
 <h3 class="alert alert-success">国家地区</h3>
 {% set country_tags = ['美国','加拿大','英国','香港','波士顿','洛杉矶','纽约','芝加哥'] %}

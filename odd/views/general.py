@@ -140,7 +140,7 @@ def register():
         return render_template('general/register.html', form=form)
     
     success(ret);
-    return redirect(url_for('user.home'))
+    return redirect(url_for('.guide'))
 
 @mod.route('/howtoaddtag', methods=['GET'])
 def howtoaddtag():
