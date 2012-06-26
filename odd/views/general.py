@@ -72,6 +72,7 @@ def poster():
     return render_template('general/poster.html')
 
 @mod.route('/guide')
+@login_required
 def guide():
     '''
     注册后指引
