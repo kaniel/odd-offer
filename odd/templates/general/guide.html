@@ -3,16 +3,50 @@
 {% block content %}
 
 {% from 'import/tag.html' import tag_box %}
-<a class="pull-right" href="{{ url_for('user.home') }}">-->进入主页</a>
-
 <section class="span12">
-    <h3 class="alert alert-info">
-        发现，关注，参与
-        <form class="guide-search plain-form pull-right" action="{{ url_for('search.index') }}" method="get">
-            <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
-            <input id="guide-search" class="span3" name="query" type="text" />
-        </form>
-    </h3>
+    <h3 class="alert alert-info">发现，关注，参与</h3>
+</section>
+
+<section class="span3">
+<h3 class="alert alert-success">国家地区</h3>
+{% set country_tags = ['美国','加拿大','英国','香港','波士顿','洛杉矶','纽约','芝加哥','Chicago','boston','los angeles','new york','澳大利亚','新西兰','sydney'] %}
+{% for t in getter.tags(country_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+<section class="span3">
+<h3 class="alert alert-warning">学校</h3>
+{% set school_tags = ['university of sydney','imperial college london','New York University(NYU)','university of chicago','harvard university','columbia university','Michigan State University','University of Illinois--Urbana-Champaign(UIUC)','University of Wisconsin--Madison(UWM)'] %}
+{% for t in getter.tags(school_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+<section class="span3">
+<h3 class="alert alert-warning">专业</h3>
+{% set major_tags = ['药学','化学工程','电子工程','统计学','化工','物理','生物','数学','计算机','经济','商学','统计','EE','工程学','语言课程'] %}
+{% for t in getter.tags(major_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+<section class="span3">
+<h3 class="alert alert-error">热门话题</h3>
+{% set hot_tags = ['united airlines','行前准备','Tofel','gre','gmat','机票','打包','房','美国签证','美国生活'] %}
+{% for t in getter.tags(hot_tags) %}
+{{ tag_box(t, current_user) }}
+{% endfor %}
+</section>
+
+
+<div class="span12">
+    <hr/>
+    <h5>更多label请进行搜索：</h5>
+    <form class="guide-search plain-form" action="{{ url_for('search.index') }}" method="get">
+        <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
+        <input id="guide-search" class="span3" name="query" type="text" />
+    </form>
 <script>
 $(function(){
     textbox({
@@ -34,43 +68,7 @@ $(function(){
     });
 });
 </script>
-</section>
-
-<section class="span3">
-<h3 class="alert alert-success">国家地区</h3>
-{% set country_tags = ['美国','加拿大','英国','香港','波士顿','洛杉矶','纽约','芝加哥'] %}
-{% for t in getter.tags(country_tags) %}
-{{ tag_box(t, current_user) }}
-{% endfor %}
-</section>
-
-<section class="span3">
-<h3 class="alert alert-warning">学校</h3>
-{% set school_tags = ['harvard university','columbia university','Michigan State University',
-    'University of Illinois--Urbana-Champaign(UIUC)','University of Wisconsin--Madison(UWM)'] %}
-{% for t in getter.tags(school_tags) %}
-{{ tag_box(t, current_user) }}
-{% endfor %}
-</section>
-
-<section class="span3">
-<h3 class="alert alert-warning">专业</h3>
-{% set major_tags = ['化学','化工','物理','生物','数学','计算机','经济','商学','统计','EE','工程学','语言课程'] %}
-{% for t in getter.tags(major_tags) %}
-{{ tag_box(t, current_user) }}
-{% endfor %}
-</section>
-
-<section class="span3">
-<h3 class="alert alert-error">热门话题</h3>
-{% set hot_tags = ['Tofel','gre','gmat','行前准备','机票','打包','房','美国签证','美国生活'] %}
-{% for t in getter.tags(hot_tags) %}
-{{ tag_box(t, current_user) }}
-{% endfor %}
-</section>
-
-
-
-
-
+    <hr/>
+</div>
+<a class="btn btn-info btn-large span6 offset3" href="{{ url_for('user.home') }}">-->进入主页</a>
 {% endblock%}
