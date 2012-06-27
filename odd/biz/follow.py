@@ -11,13 +11,11 @@ def new_tag_follow(tag_follow):
     if tf:
         return TAG_FOLLOW_DUPLICATE
 
-    db_session.begin()
     db_session.add(tag_follow)
     db_session.commit()
     return TAG_FOLLOW_ADD_OK
 
 def del_tag_follow(tag_follow):
-    db_session.begin()
     db_session.query(Tag_Follow).filter_by(user_id=tag_follow.user_id,tag=tag_follow.tag).delete()
     db_session.commit()
     return TAG_FOLLOW_DEL_OK

@@ -43,10 +43,8 @@ def get_resource_titles(count):
 
 def new_resource(resource, tags):
     new_tags(tags)
-    db_session.begin()
     db_session.add(resource)
     db_session.commit()
-
     return RESOURCE_ADD_OK
 
 def new_resource_download(rd):
@@ -55,7 +53,6 @@ def new_resource_download(rd):
     if download:
         return RESOURCE_DOWNLOAD_DUPLICATE
     
-    db_session.begin()
     db_session.add(rd)
 
     resource = db_session.query(Resource).get(rd.resource_id)

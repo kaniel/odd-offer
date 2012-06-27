@@ -44,6 +44,8 @@ login_manager.login_message = u"这个页面需要登录后才能访问"
 #
 # Handler
 #
+from odd.data.db import db_session
+
 @login_manager.user_loader
 def load_user(user_id):
     return get_user_by_id(user_id)
@@ -56,6 +58,9 @@ def not_found(error):
 def too_large(error):
     return render_template('413.html'), 413
 
+@app.teardown_request
+def close_db_session(exception):
+    db_session.remove()
 
 #
 # Context
@@ -84,3 +89,10 @@ if not app.debug:
     sh.setFormatter(ft)
     sh.setLevel(logging.ERROR)
     app.logger.addHandler(sh)
+
+'''
+import logging
+logger = logging.getLogger('sqlalchemy.engine')
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler())
+'''

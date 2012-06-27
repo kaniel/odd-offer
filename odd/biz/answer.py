@@ -8,7 +8,6 @@ from odd.models.question import *
 from odd.utils.error import *
 
 def new_answer(answer):
-    db_session.begin()
     db_session.add(answer)
 
     question = db_session.query(Question).get(answer.question_id)
@@ -25,8 +24,6 @@ def new_answer_up(answer_up):
     if au:
         return ANSWER_UP_DUPLICATE
 
-    db_session.begin()
-
     db_session.add(answer_up)
 
     anwser = db_session.query(Answer).get(answer_up.answer_id)
@@ -38,7 +35,6 @@ def new_answer_up(answer_up):
 
 
 def new_comment(comment):
-    db_session.begin()
     db_session.add(comment)
     db_session.commit()
     return COMMENT_ADD_OK

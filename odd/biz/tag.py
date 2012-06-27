@@ -23,7 +23,6 @@ def get_latest_tags(count, page=0):
 
 def new_tag(tag):
     try:
-        db_session.begin()
         db_session.add(tag)
         db_session.commit()
         return TAG_ADD_OK
@@ -37,13 +36,11 @@ def new_tags(tags):
     return TAG_ADD_OK
 
 def new_tag_edit(tag_edit):
-    db_session.begin()
     db_session.add(tag_edit)
     db_session.commit()
     return TAG_EDIT_ADD_OK
 
 def edit_tag(tag):
-    db_session.begin()
     db_session.add(tag)
     db_session.commit()
     return TAG_EDIT_OK

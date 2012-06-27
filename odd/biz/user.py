@@ -29,7 +29,6 @@ def register_user(user):
     if get_user_by_name(user.nickname):
         return USER_DUPLICATE
 
-    db_session.begin()
     db_session.add(user)
     db_session.commit()
 
@@ -46,7 +45,6 @@ def edit_user(user):
     if u and u.id != user.id:
         return USER_NICKNAME_DUPLICATE
 
-    db_session.begin()
     db_session.add(user)
     db_session.commit()
     return USER_EDIT_OK
