@@ -22,9 +22,11 @@ def get_resource_by_tag(tag):
     return [t.resource for t in tags]
 
 def get_resource_by_tags(tags):
-    tags = db_session.query(Resource_Tag).filter(Resource_Tag.tag.in_(tags)).order_by(Resource_Tag.id.desc()).all()
+    tag_objs = []
+    if tags:
+        tag_objs = db_session.query(Resource_Tag).filter(Resource_Tag.tag.in_(tags)).order_by(Resource_Tag.id.desc()).all()
     rs = []
-    for t in tags:
+    for t in tag_objs:
         if not t.resource in rs:
             rs.append(t.resource)
     return rs

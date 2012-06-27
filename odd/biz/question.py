@@ -33,9 +33,11 @@ def get_question_by_time(time):
     return questions
 
 def get_question_by_tags(tags):
-    tags = db_session.query(Question_Tag).filter(Question_Tag.tag.in_(tags)).order_by(Question_Tag.id.desc()).all()
+    tag_objs = []
+    if tags:
+        tag_objs = db_session.query(Question_Tag).filter(Question_Tag.tag.in_(tags)).order_by(Question_Tag.id.desc()).all()
     qs = []
-    for t in tags:
+    for t in tag_objs:
         if not t.question in qs:
             qs.append(t.question)
     return qs
