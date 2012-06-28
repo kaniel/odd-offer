@@ -19,7 +19,7 @@ def index():
 
     query = query.lower()
 
-    count = 50
+    count = 200
 
     tags = [t for t in get_latest_tags(count) if query in t.tag.lower()]
     questions = [q for q in get_latest_questions(count) if query in q.title.lower()]
@@ -29,7 +29,9 @@ def index():
 
 @mod.route('/tips')
 def tips():
-    tags = get_latest_tags(100)
+    count = 200
+
+    tags = get_latest_tags(count)
     ts = []
     for t in tags:
         ts.append({
@@ -38,7 +40,7 @@ def tips():
             'photo': t.tag_photo(20)
             })
 
-    questions = get_question_titles(100)
+    questions = get_question_titles(count)
     qs = []
     for q in questions:
         qs.append({
@@ -46,7 +48,7 @@ def tips():
             'title': q.title,
             })
     
-    resources = get_resource_titles(100)
+    resources = get_resource_titles(count)
     rs = []
     for r in resources:
         rs.append({
