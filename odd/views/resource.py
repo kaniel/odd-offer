@@ -81,7 +81,10 @@ def new():
     form = NewResForm()
     files = clean_files(request.files.getlist('files'))
 
-    if not files or not form.validate_on_submit():
+    if not form.validate_on_submit() or not files:
+        if form.is_submitted() and not files:
+            form.errors['files'] = [u'请选择文件']
+
         return render_template('resource/new.html', form=form)
     
     title = form.title.data
@@ -101,4 +104,4 @@ def new():
 class NewResForm(Form):
     title = TextField(u'标题*', validators=[Required(), Length(max=128)])
     desc = TextAreaField(u'描述*', validators=[Required()])
-    tags = TextField(u'标签*', validators=[Required()])
+    tags = TextField(u'Label*', validators=[Required()])

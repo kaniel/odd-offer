@@ -17,6 +17,8 @@
 
     <label>文件*</label>
     <input name="files" type="file" multiple>
+    {{ error(form.errors['files']) }}
+    <span class="help-block">资源文件，可选择多个文件</span>
 
     {{ form.desc.label }}
     {{ form.desc() }}
