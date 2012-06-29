@@ -2,7 +2,7 @@
 
 from flask import Blueprint, url_for, redirect, render_template, abort, request, jsonify
 from flask.ext.login import login_required, current_user
-from flaskext.wtf import Form, TextField, TextAreaField, FileField, FieldList, Required
+from flaskext.wtf import Form, TextField, TextAreaField, FileField, FieldList, Required, Length
 
 from odd.utils.error import *
 from odd.utils.tools import *
@@ -99,6 +99,6 @@ def new():
     return redirect(url_for('.index', id=resource.id))
 
 class NewResForm(Form):
-    title = TextField(u'标题*', validators=[Required()])
+    title = TextField(u'标题*', validators=[Required(), Length(max=128)])
     desc = TextAreaField(u'描述*', validators=[Required()])
     tags = TextField(u'标签*', validators=[Required()])

@@ -15,7 +15,7 @@ class Question(Model):
     
     id = Column('id', INT, primary_key=True)
     user_id = Column('user_id', INT, ForeignKey('users.id'), nullable=False)
-    title = Column('title', VARCHAR(255), nullable=False)
+    title = Column('title', VARCHAR(128), nullable=False)
     content = Column('content', TEXT, nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False)
     answer_count = Column('answer_count', INT, nullable=False)

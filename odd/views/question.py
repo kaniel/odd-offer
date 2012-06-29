@@ -2,7 +2,7 @@
 
 from flask import Blueprint, url_for, redirect, render_template, abort, request, jsonify
 from flask.ext.login import login_required, current_user
-from flaskext.wtf import Form, TextField, TextAreaField, Required
+from flaskext.wtf import Form, TextField, TextAreaField, Required, Length
 
 from odd.utils.error import *
 
@@ -111,6 +111,6 @@ def new():
 
 
 class NewQueForm(Form):
-    title = TextField(u'标题*', validators=[Required()])
+    title = TextField(u'标题*', validators=[Required(), Length(max=128)])
     content = TextAreaField(u'内容*', validators=[Required()])
     tags = TextField(u'Label*', validators=[Required()])

@@ -16,7 +16,7 @@ class Resource(Model):
     
     id = Column('id', INT, primary_key=True)
     user_id = Column('user_id', INT, ForeignKey('users.id'), nullable=False)
-    title = Column('title', VARCHAR(50), nullable=False)
+    title = Column('title', VARCHAR(128), nullable=False)
     desc = Column('description', TEXT, nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False)
     download_count = Column('download_count', INT, nullable=False)
