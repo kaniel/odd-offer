@@ -47,13 +47,21 @@ $(function(){
     })
 
     $('.answer .up').click(function(){
-        aid = $(this).attr('id').split('-')[1]
+        var that = $(this)
+        var aid = $(this).parent('.vote').attr('data-id')
         $.ajax({
             url:"{{ url_for('answer.up') }}",
             type: "POST",
             data: {"answer_id":aid},
             error: fail,
-            success: success
+            success: function(data){
+                if(data.errno != 'SUCCESS') {
+                    alert('您的操作没有成功！');
+                    return;
+                }
+                var score = that.siblings('.score');
+                score.text(parseInt(score.text()) + 1);
+            }
         })
     })
 

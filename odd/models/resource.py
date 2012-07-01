@@ -22,7 +22,7 @@ class Resource(Model):
     download_count = Column('download_count', INT, nullable=False)
     
     user = relation('User')
-    tags = relation("Resource_Tag", backref=backref('resource'))
+    tags = relation("Resource_Tag", backref=backref('resource'), order_by='Resource_Tag.id')
 
     def __init__(self, user_id, title, desc, tags):
         self.user_id = user_id
@@ -68,3 +68,21 @@ class Resource_Download(Model):
 
     def __repr__(self):
         return '<Resource_Download %d %s>' % (self.resource_id,self.user_id)
+
+class Resource_Edit(Model):
+    __tablename__ = 'resource_edits'
+    
+    id = Column('id', INT, primary_key=True)
+    user_id = Column('user_id', INT, nullable=False)
+    resource_id = Column('resource_id', INT, nullable=False)
+    tags = Column('tags', TEXT, nullable=False)
+    create_time = Column('create_time', TIMESTAMP, nullable=False)
+
+    def __init__(self, user_id, resource_id, tags):
+        self.user_id = user_id
+        self.resource_id = resource_id
+        self.tags = ','.join(tags)
+        self.create_time = datetime.now()
+
+    def __repr__(self):
+        return '<Resource_Edit %s>' % self.id

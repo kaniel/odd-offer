@@ -2,13 +2,9 @@
 <section id="resource-{{ r.id }}" class="resource thumbnail">
         <header>
         <a class="title" href="{{ url_for('resource.index', id=r.id) }}"><h4>{{ r.title }}</h4></a>
-        <p>
-            来自：
-            {% for tag in r.tags %}
-                <a href="{{ url_for('tag.index', tag=tag.tag) }}"><span class="label label-warning">{{ tag.tag }}</span></a>
-            {% endfor %}
-            </p>
-        </header>
+        {% from 'import/tools.html' import tag_editor %}
+        {{ tag_editor(r.tags, url_for('resource.tags', id=r.id)) }}
+       </header>
         
         {% if content %}
         <blockquote>

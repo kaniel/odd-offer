@@ -187,8 +187,23 @@ ul.inline {
     }
 }
 
-.question.focus {
-    background: #fef;
+.question-form, .resource-form {
+    input.text {
+        width: 80%;    
+        height: 21px;
+    }    
+    input.submit {
+        width: 82%;    
+    }    
+    textarea {
+        width: 80%;    
+    }
+    .textboxlist {
+        width: 82%;    
+    }
+    .textboxlist-autocomplete {
+        width: 508px;    
+    }
 }
 
 .question {
@@ -206,7 +221,7 @@ ul.inline {
 
 .answer {
     position: relative;
-    .up {
+    .vote {
         position:absolute;
         left:-50px;
         span {
@@ -309,7 +324,6 @@ ul.inline {
 }
 
 .textboxlist-bits {
-    width: 500px;
     background-color: white;
     border: 1px solid #CCC;
     .border-radius();
@@ -326,7 +340,7 @@ ul.inline {
 }
 
 .textboxlist-autocomplete {
-    width: 510px;
+    width: 500px;
 }
 
 .textboxlist-autocomplete-results {
@@ -389,5 +403,3 @@ ul.inline {
         z-index: -1;
     }   
 }
-
-

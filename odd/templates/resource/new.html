@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form class="well span8 offset2" action="{{ url_for('resource.new') }}" method='post' enctype="multipart/form-data">
+<form class="well span8 offset2 resource-form" action="{{ url_for('resource.new') }}" method='post' enctype="multipart/form-data">
     {% from 'import/tools.html' import flashed_msg,error %}
 
     <h3 class="alert alert-info">传资源</h3>
@@ -11,17 +11,17 @@
     {{ form.csrf }}
 
     {{ form.title.label }}
-    {{ form.title() }}
+    {{ form.title(class="text") }}
     {{ error(form.errors['title']) }}
     <span class="help-block">资源的主题</span>
 
     <label>文件*</label>
     <input name="files" type="file" multiple>
     {{ error(form.errors['files']) }}
-    <span class="help-block">资源文件，可选择多个文件</span>
+    <span class="help-block">资源文件，可选择多个文件，总大小不能多于5M</span>
 
     {{ form.desc.label }}
-    {{ form.desc() }}
+    {{ form.desc(rows=10) }}
     {{ error(form.errors['desc']) }}
     <span class="help-block">资源的详细介绍</span>
 
@@ -40,6 +40,6 @@
     </script>
     
     <hr>
-    <input class="btn btn-primary" type="submit" value="上传"/>
+    <input class="submit btn btn-primary" type="submit" value="上传"/>
 </form>
 {% endblock %}

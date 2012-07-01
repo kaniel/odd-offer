@@ -75,18 +75,18 @@ def clean_tags(tags):
 def tags(id):
     tags = request.form.get('tags')
     if not tags:
-        return jsonify(errno='FAIL')
+        return jsonify(status='ERROR', msg=u'label can\'t be empty')
 
     tags = clean_tags(tags.split(','))
 
     ret = edit_question_tags(id, tags)
     if ret != QUESTION_TAG_EDIT_OK:
-        return jsonify(errno='FAIL')
+        return jsonify(status='ERROR', msg=ret)
     
     question_edit = Question_Edit(current_user.id, id, tags)
     new_question_edit(question_edit)
 
-    return jsonify(errno='SUCCESS')
+    return jsonify(status='OK')
 
 @mod.route('/new', methods=['GET','POST'])
 @login_required

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form class="well span8 offset2" action="{{ url_for('question.new') }}" method='post'>
+<form class="well span8 offset2 question-form" action="{{ url_for('question.new') }}" method='post'>
     {% from 'import/tools.html' import flashed_msg,error %}
 
     <h3 class="alert alert-info">提问</h3>
@@ -11,13 +11,13 @@
     {{ form.csrf }}
 
     {{ form.title.label }}
-    {{ form.title(style="width:490px;height:21px") }}
+    {{ form.title(class="text") }}
     {{ error(form.errors['title']) }}
     
     <span class="help-block">问题的主题</span>
 
     {{ form.content.label }}
-    {{ form.content(style="width:490px",rows=10,cols=10) }}
+    {{ form.content(rows=10) }}
     {{ error(form.errors['content']) }}
     <span class="help-block">问题的详细内容</span>
 
@@ -36,7 +36,7 @@
     </p>
     <hr>
     
-    <input class="btn btn-primary" type="submit" value="发布"/>
+    <input class="submit btn btn-primary" type="submit" value="发布"/>
 </form>
 
 <script>

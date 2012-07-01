@@ -22,18 +22,17 @@ $(function(){
         edited.hide('fast');
         edit_form.show('fast');
         edit_item.val(edited_item.text())
-        edit_cancel.click(function(){
-            edit_form.hide('fast');
-            edited.show('fast');
-        })
     });
-
-    $('.edit-form').ajaxForm({
-        complete: success
-    });
+    
+    $('.editable .edit-cancel').click(function(){
+        var edit_form = $(this).parents('.edit-form');
+        var edited = edit_form.siblings('.edited')
+        edit_form.hide('fast');
+        edited.show('fast');
+    })
 
     $('.ajax-form').ajaxForm({
-        'complete': success
+        complete: success
     });
 
     $('.tag-box').hover(function(){
@@ -91,16 +90,18 @@ function trim(str){
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 
-function fail(request){
-    alert('您的操作没有成功')
+function fail(msg){
+    if(typeof(msg) != 'string') msg = '您的操作没有成功' 
+    alert(msg)
 }
 
-function success(data){
-    if(data.errno=='FAIL'){
-        alert('您的操作没有成功')
-        return
+function success(data, custom){
+    if(data.errno == 'SUCCESS' || data.status == 'OK'){
+        if(custom) custom();
+        else window.location.reload(true)
+    }else{
+        fail(data.msg)
     }
-    window.location.reload(true)
 }
 
 function tag_format(data){
@@ -180,9 +181,7 @@ function textbox(_options) {
    
     if(options.empty_submit){
         t.addEvent('empty', function(){
-            $(options.element).parent('.edit-form').ajaxSubmit({
-                success: success
-            });
+            $(options.element).parent('.edit-form').submit();
         });
     }
 

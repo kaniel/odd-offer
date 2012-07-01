@@ -53,18 +53,18 @@ def clean_tags(tags):
 def tags(id):
     tags = request.form.get('tags')
     if not tags:
-        return jsonify(errno='FAIL')
+        return jsonify(status='ERROR', msg=u'label can\'t be empty')
 
     tags = clean_tags(tags.split(','))
 
     ret = edit_resource_tags(id, tags)
-    if ret != QUESTION_TAG_EDIT_OK:
-        return jsonify(errno='FAIL')
+    if ret != RESOURCE_TAG_EDIT_OK:
+        return jsonify(status='ERROR', msg=ret)
     
     resource_edit = Resource_Edit(current_user.id, id, tags)
     new_resource_edit(resource_edit)
 
-    return jsonify(errno='SUCCESS')
+    return jsonify(status='OK')
 
 def clean_files(files):
     files_clean = []

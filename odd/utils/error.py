@@ -43,8 +43,14 @@ TAG_EDIT_OK = u'标签修改成功'
 TAG_EDIT_ADD_OK = u'标签修改记录添加成功'
 
 RESOURCE_ADD_OK = u'资源上传成功'
+RESOURCE_EDIT_OK = u'资源修改成功'
+
+RESOURCE_EDIT_ADD_OK = u'资源修改记录添加成功'
+
 RESOURCE_DOWNLOAD_ADD_OK = u'资源下载记录添加成功'
 RESOURCE_DOWNLOAD_DUPLICATE = u'资源下载记录已存在'
+
+RESOURCE_TAG_EDIT_OK = u'资源标签修改成功'
 
 def success(error):
     flash(error, 'success')

@@ -55,9 +55,9 @@
 
 {% macro normal_answer(a, current_user) %}
 <section id="answer-{{ a.id }}" class="answer thumbnail">
-<div id="up-{{ a.id }}" class="up thumbnail">
-    <span>{{ a.up }}</span>
-    <button>顶</button>
+<div class="vote thumbnail" data-id="{{ a.id }}">
+    <span class="score">{{ a.up }}</span>
+    <button class="up">顶</button>
 </div>
 
 <blockquote>
@@ -87,67 +87,29 @@
 {% endmacro %}
 
 {% macro question_detail(q, current_user) %}
+
 <section id="question-{{ q.id }}" class="question thumbnail">
-<header>
-    <a class="title" href="{{ url_for('question.index', id=q.id) }}"><h4>{{ q.title }}</h4></a>
-    <div class="editable">
-        <p class="edited">
-        来自：
-        {% for tag in q.tags %}
-        <a class="tag" href="{{ url_for('tag.index', tag=tag.tag) }}">
-            <span class="label label-warning">{{ tag.tag }}</span>
-        </a>
-        {% endfor %}
-        
-        <a href="javascript:;" class="question-tag-edit edit small">修改</a>
-        </p>
-        <form class="edit-form" action="{{ url_for('question.tags', id=q.id) }}" method="post" style="margin:5px 0px 10px 0px">
-            <input class="edit-item" name="tags" type="text" />
-            <a class="edit-cancel small" href="javascript:;">取消</a>
-        </form>
-        <script>
-        $(function(){
-            var t = null;
-            $('.question-tag-edit').click(function(){
-                if(t) return;
-                var edited = $(this).parents('.edited');
-                var edit_item = edited.siblings('.edit-form').children('.edit-item');
-                var tag_spans = $(this).siblings('.tag').children('span');
-
-                var tags = [];
-                $.each(tag_spans, function(i,span){
-                    var tag = span.innerHTML;
-                    tags.push([tag, tag]);
-                });
-
-                t = textbox({
-                    element: edit_item, 
-                    placeholder: '搜索：标签',
-                    init_values: tags,  
-                    empty_submit: true,
-                    url: "{{ url_for('tag.obj') }}",
-                    format: tag_format,
-                    focus: true  
-                });
-            });
-        });
-        </script>
+    <header>
+        <a class="title" href="{{ url_for('question.index', id=q.id) }}"><h4>{{ q.title }}</h4></a>
+        {% from 'import/tools.html' import tag_editor %}
+        {{ tag_editor(q.tags, url_for('question.tags', id=q.id)) }}
     </header>
 
-<blockquote>
-    <p>{{ q.content }}</p>
-    <small>
-        <a href="{{ url_for('user.index', nickname=q.user.nickname) }}">
-            <img src="{{ url_for('static', filename=q.user.photo(20)) }}" />
-            {{ q.user.nickname }}
-        </a>
-    </small>
-</blockquote>
+    <blockquote>
+        <p>{{ q.content }}</p>
+        <small>
+            <a href="{{ url_for('user.index', nickname=q.user.nickname) }}">
+                <img src="{{ url_for('static', filename=q.user.photo(20)) }}" />
+                {{ q.user.nickname }}
+            </a>
+        </small>
+    </blockquote>
 
-<footer>
-&nbsp
-<span class="small pull-right">{{ q.create_time }}</span>
-</footer>
+    <footer>
+        &nbsp
+        <span class="small pull-right">{{ q.create_time }}</span>
+    </footer>
 
 </section>
+
 {% endmacro %}

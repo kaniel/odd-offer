@@ -62,3 +62,15 @@ def new_resource_download(rd):
     
     db_session.commit()
     return RESOURCE_DOWNLOAD_ADD_OK
+
+def edit_resource_tags(rid, tags):
+    new_tags(tags)
+    db_session.query(Resource_Tag).filter_by(resource_id=rid).delete()
+    db_session.add_all([Resource_Tag(rid,tag) for tag in tags])
+    db_session.commit()
+    return RESOURCE_TAG_EDIT_OK
+
+def new_resource_edit(resource_edit):
+    db_session.add(resource_edit)
+    db_session.commit()
+    return RESOURCE_EDIT_ADD_OK
