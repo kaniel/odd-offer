@@ -95,10 +95,9 @@ function fail(msg){
     alert(msg)
 }
 
-function success(data, custom){
+function success(data){
     if(data.errno == 'SUCCESS' || data.status == 'OK'){
-        if(custom) custom();
-        else window.location.reload(true)
+        window.location.reload(true)
     }else{
         fail(data.msg)
     }
