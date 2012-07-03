@@ -31,8 +31,15 @@ $(function(){
         edited.show('fast');
     })
 
+    $('.edit-form').ajaxForm({
+        error: fail,
+        success: success
+    });
+
+
     $('.ajax-form').ajaxForm({
-        complete: success
+        error: fail,
+        success: success
     });
 
     $('.tag-box').hover(function(){
