@@ -4,7 +4,7 @@
 <div class="editable span1 offset0" style="position:relative;overflow:display">
     <div>
         <img class="pull-left" src="{{ url_for('static', filename=tag.tag_photo(90)) }}" />
-        <a id="tag-photo-edit" class="edit small" data-toggle="modal" href="#tag-photo-modal">修改</a>
+        <a id="tag-photo-edit" class="edit small" data-toggle="modal" href="#tag-photo-modal"><i class="icon-pencil"></i> 修改</a>
     </div>
     {#
     <form class="edit-form span2" action="{{ url_for('tag.photo', id=tag.id) }}" method="post" style="border-radius:10px;background:whiteSmoke;padding:5px;">
@@ -22,7 +22,7 @@
         <small class="edited">
             &nbsp
             <span class="edited-item">{{ tag.description }}</span>
-            <a class="edit small" href="javascript:;">修改</a>
+            <a class="edit small" href="javascript:;"><i class="icon-pencil"></i> 修改</a>
         </small>
         <form class="edit-form" action="{{ url_for('tag.desc', id=tag.id) }}" method="post">
             <textarea class="edit-item" style="width:500px;height:31px" name="desc"></textarea>
@@ -69,15 +69,60 @@
 
 {% endmacro %}
 
-{% macro tag_box1(tag) %}
-<section class="tag-box thumbnail">
-<img src="{{ url_for('static', filename=tag.tag_photo(90)) }}" /> 
-<hr class="hr-tiny">
-<blockquote class="simple-quote">
-    <a href="{{ url_for('tag.index', tag=tag.tag) }}"><h5>{{ tag.tag }}</h5></a>
-    <small>
-        {{ tag.description }}
-    </small>
-</blockquote>
-</section>
+{% macro tag_editor(tags, action) %}
+
+<div class="editable">
+    <p class="edited">
+    来自：
+    {% for tag in tags %}
+    <a class="tag" href="{{ url_for('tag.index', tag=tag.tag) }}">
+        <span class="label label-warning">{{ tag.tag }}</span>
+    </a>
+    {% endfor %}
+    
+    <a href="javascript:;" class="tag-edit edit small"><i class="icon-pencil"></i> 修改</a>
+    </p>
+
+    <form class="tag-edit-form edit-form" action="{{ action }}" method="post" style="margin:5px 0px 10px 0px">
+        <input class="edit-item" name="tags" type="text" />
+        <a class="edit-cancel small" href="javascript:;">取消</a>
+    </form>
+<div>
+
+<script>
+$(function(){
+    var t = null;
+    $('.tag-edit').click(function(){
+        if(t) return;
+        var edited = $(this).parents('.edited');
+        var edit_item = edited.siblings('.edit-form').children('.edit-item');
+        var tag_spans = $(this).siblings('.tag').children('span');
+
+        var tags = [];
+        $.each(tag_spans, function(i,span){
+            var tag = span.innerHTML;
+            tags.push([tag, tag]);
+        });
+
+        t = textbox({
+            element: edit_item, 
+            placeholder: '搜索：标签',
+            init_values: tags,  
+            empty_submit: true,
+            url: "{{ url_for('tag.obj') }}",
+            format: tag_format,
+            focus: true  
+        });
+    });
+
+    $('.tag-edit-form').ajaxForm({
+        error: fail, 
+        success: function(data){
+            success(data);
+        }
+    });
+
+});
+</script>
+ 
 {% endmacro %}

@@ -2,10 +2,10 @@
 
 {% block content %}
 
-{% from 'import/topic.html' import question_detail, normal_answer, normal_comment %}
+{% from 'import/topic.html' import normal_question, normal_answer, normal_comment %}
 
 <section class="topic span8">
-{{ question_detail(question) }}
+{{ normal_question(question) }}
 <hr>
 
 <p>{{ question.answer_count }}个答案</p>

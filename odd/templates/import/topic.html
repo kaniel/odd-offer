@@ -86,12 +86,12 @@
 </section>
 {% endmacro %}
 
-{% macro question_detail(q, current_user) %}
+{% macro normal_question(q, current_user) %}
 
 <section id="question-{{ q.id }}" class="question thumbnail">
     <header>
         <a class="title" href="{{ url_for('question.index', id=q.id) }}"><h4>{{ q.title }}</h4></a>
-        {% from 'import/tools.html' import tag_editor %}
+        {% from 'import/tag.html' import tag_editor %}
         {{ tag_editor(q.tags, url_for('question.tags', id=q.id)) }}
     </header>
 
