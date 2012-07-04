@@ -5,18 +5,14 @@
         <title>Offer多多</title>
 
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='textboxlist/TextboxList.css') }}"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='textboxlist/TextboxList.Autocomplete.css') }}"/>
         <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='bootstrap/less/custom.less') }}">
 
         <script src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jquery.form.js') }}"></script>
         <script src="{{ url_for('static', filename='less-1.3.0.min.js') }}" ></script>
         <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}" ></script>
-        <script src="{{ url_for('static', filename='textboxlist/GrowingInput.js') }}" ></script>
-        <script src="{{ url_for('static', filename='textboxlist/TextboxList.js') }}" ></script>
-        <script src="{{ url_for('static', filename='textboxlist/TextboxList.Autocomplete.js') }}" ></script>
-        <script src="{{ url_for('static', filename='textboxlist/TextboxList.Autocomplete.Custom.js') }}" ></script>
+        <script src="{{ url_for('static', filename='bootstrap-typeahead-custom.js') }}" ></script>
+
         <script src="{{ url_for('static', filename='custom.js') }}"></script>
 
     </head>
@@ -31,19 +27,26 @@
                     <img src="{{ url_for('static', filename='img/logo.jpg') }}" height="34px">
                 </a>
                 {% if current_user and current_user.is_authenticated() %}
+
                     {% from 'import/tools.html' import nav, account, search, iwant, reminds %}
 
                     {% block nav %}{{ nav('', current_user) }}{% endblock %}
+                
                     <ul class="nav pull-right">
-                    {{ search() }}
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ url_for('question.new') }}">提问</a></li>
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ url_for('resource.new') }}">传资源</a></li>
-                    <li class="divider-vertical"></li>
-                    {{ reminds() }}
-                    {{ account(current_user) }}
-                </ul>
+                        <li class="divider-vertical"></li>
+                        <li><a href="{{ url_for('question.new') }}">提问</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="{{ url_for('resource.new') }}">传资源</a></li>
+                        <li class="divider-vertical"></li>
+                        {{ reminds() }}
+                        {{ account(current_user) }}
+                    </ul>
+
+                    <ul class="nav" style="float:right">
+                        <li class="dropdown">
+                        {{ search('navbar-tip-form', 'navbar-search') }}
+                        </li>
+                    </ul>
 
                 {% else %}
                 
@@ -90,7 +93,7 @@
         <footer id="aticle-footer" class="container">
         <hr>
             <div class="small clearfix">
-            <span class="pull-left">offerduoduo.com©2012 </span>
+            <span class="pull-left">offerduoduo.com © 2012 </span>
             <ul class="pull-right">
                 <a href="{{ url_for('general.help') }}">帮助</a>
                 | <a href="{{ url_for('general.advice') }}">宝贵意见</a>

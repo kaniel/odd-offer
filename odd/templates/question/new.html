@@ -2,6 +2,9 @@
 
 {% block content %}
 
+{% from 'import.tools.html' import textbox_css_js %}
+{{ textbox_css_js() }}
+
 <form class="well span8 offset2 question-form" action="{{ url_for('question.new') }}" method='post'>
     {% from 'import/tools.html' import flashed_msg,error %}
 

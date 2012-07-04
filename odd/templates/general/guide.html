@@ -43,31 +43,8 @@
 <div class="span12">
     <hr/>
     <h5>更多label请进行搜索：</h5>
-    <form class="guide-search plain-form" action="{{ url_for('search.index') }}" method="get">
-        <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
-        <input id="guide-search" class="span3" name="query" type="text" />
-    </form>
-<script>
-$(function(){
-    textbox({
-        element: '#guide-search',
-        url: "{{ url_for('search.tips') }}",
-        format: tip_format,
-        placeholder:'搜索：标签，问题，资源',
-        on_selected: function(value){
-            location.href = value[0];
-            return false;
-        },
-        on_new: function(value){
-            if(!value[1]) return false;
-            $('#guide-search').val(value[1]);
-            $('#guide-search').parent('form').submit();
-            return false;
-        },
-        post_result: classify,
-    });
-});
-</script>
+    {% from 'import/tools.html' import search %}
+    {{ search('guide-tip-form', 'plain-form') }}
     <hr/>
 </div>
 <a class="btn btn-info btn-large span6 offset3" href="{{ url_for('user.home') }}">-->进入主页</a>

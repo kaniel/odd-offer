@@ -2,6 +2,9 @@
 
 {% block content %}
 
+{% from 'import.tools.html' import textbox_css_js %}
+{{ textbox_css_js() }}
+
 <form class="well span8 offset2 resource-form" action="{{ url_for('resource.new') }}" method='post' enctype="multipart/form-data">
     {% from 'import/tools.html' import flashed_msg,error %}
 
@@ -28,17 +31,7 @@
     {{ form.tags.label }}
     {{ form.tags(id='tag-search') }}
     {{ error(form.errors['tags']) }}
-    <script>
-        $(function(){
-            textbox({
-                element: '#tag-search',
-                placeholder: '搜索：标签',
-                url: "{{ url_for('tag.obj') }}",
-                format: tag_format
-            });
-        });
-    </script>
-    
+   
     <hr>
     <input class="submit btn btn-primary" type="submit" value="上传"/>
 </form>

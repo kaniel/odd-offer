@@ -1,10 +1,26 @@
+var searcher = null;
 $(function(){
-
-    $('.dropdown').hover(function(){
+    $('.dropdown.auto-down').hover(function(){
         $(this).addClass('open');
     },function(){
         $(this).removeClass('open');
     })
+
+    $('.tip-search').click(function(){
+        var that = $(this)
+        if(searcher) return;
+        $.getJSON('/search/tips', function(data){
+            source = tip_format(data)
+            searcher = search_init(that, source, 10)
+        })
+    })
+
+    textbox({
+            element: '#tag-search',
+            placeholder: '搜索：标签',
+            url: "{{ url_for('tag.obj') }}",
+            format: tag_format
+    });
 
     $('.editable').hover(function(){
         $('.edit', this).fadeIn('fast');
@@ -91,7 +107,77 @@ $(function(){
         });
     });
 
+
 });
+
+function search_init(ele, source, max){
+    var typeahead = $(ele).typeahead({
+        source: source,
+        items : max,
+        getter: function(item){
+            return item[0]
+        },
+        sorter: function(items){
+            items = typeahead._sorter(items)
+            return classify(items, max, typeahead.query.toLowerCase())
+        },
+        highlighter: function(item){
+            hl = typeahead._highlighter(item)
+            return item[1].replace(new RegExp('&&','g'), hl)
+        },
+        onSelect: function(val){
+            location.href = val[3]
+        },
+    }).data('typeahead')
+
+    return this;
+}
+
+function tip_format(data){
+    var tips = []
+
+    $.each(data.tags,function(i,tag){
+        tips.push([tag.tag, '<img src="/static/'+tag.photo+'" /> &&', 'tag', '/tag/'+tag.tag]);  
+    });
+
+    $.each(data.questions,function(i,que){
+        tips.push([que.title, '<img src="/static/img/question.png" /> &&', 'question', '/question/'+que.id]);
+    });
+
+    $.each(data.resources,function(i,res){
+        tips.push([res.title, '<img src="/static/img/resource.png" /> &&', 'resource', '/resource/'+res.id]);  
+    });
+
+    return tips;
+}
+
+function classify(items, max, query){
+    var tags = []
+        , questions = []
+        , resources = [];
+
+    $.each(items, function(k, v){
+        switch(v[2]){
+        case 'tag':
+            tags.push(v);
+            break;
+        case 'question':
+            questions.push(v);
+            break;
+        case 'resource':
+            resources.push(v);
+            break;
+        }
+    });
+
+    tags = tags.slice(0, max/3);
+    questions = questions.slice(0, max/3);
+    resources = resources.slice(0, max/3);
+    
+    pres = [['','搜索 '+query,'','/search/?query='+query]]
+
+    return pres.concat(tags, questions, resources);
+}
 
 function trim(str){
     return str.replace(/(^\s*)|(\s*$)/g, "");
@@ -116,50 +202,6 @@ function tag_format(data){
         tags.push([t.tag, t.tag, null, '<img src="/static/'+t.photo+'" />'+t.tag]);
     });
     return tags;
-}
-
-function tip_format(data){
-    var tips = []
-
-    $.each(data.tags,function(i,tag){
-        tips.push(['/tag/'+tag.tag, tag.tag, 'tag', '<img src="/static/'+tag.photo+'" />'+tag.tag]);  
-    });
-
-    $.each(data.questions,function(i,que){
-        tips.push(['/question/'+que.id, que.title, 'question', '<img src="/static/img/question.png" />'+que.title]);
-    });
-
-    $.each(data.resources,function(i,res){
-        tips.push(['/resource/'+res.id, res.title, 'resource', '<img src="/static/img/resource.png" />'+res.title]);  
-    });
-
-    return tips;
-}
-
-function classify(items, max){
-    var tags = []
-        , questions = []
-        , resources = [];
-
-    $.each(items, function(k, v){
-        switch(v[2]){
-        case 'tag':
-            tags.push(v);
-            break;
-        case 'question':
-            questions.push(v);
-            break;
-        case 'resource':
-            resources.push(v);
-            break;
-        }
-    });
-
-    tags = tags.slice(0, max/3);
-    questions = questions.slice(0, max/3);
-    resources = resources.slice(0, max/3);
-    
-    return tags.concat(questions, resources);
 }
 
 function textbox(_options) {

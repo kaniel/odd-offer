@@ -344,41 +344,39 @@ ul.inline {
     }
 }
 
-.navbar-search {
+.navbar .nav .typeahead .active > a, .navbar .nav .typeahead .active > a:hover {
+    background-color: #08c;
+}
+
+.tip-form {
     position: relative;
 
-    .textboxlist-bits {
-        width: 210px;
-        padding-left: 26px;
-    }
-    
-    .textboxlist-autocomplete {
-        width: 400px;
-    }
-    
     .search-img {
         position: absolute;
-        top: 2px;
-        left: 2px;
+        top: 3px;
+        left: 5px;
+    }
+
+    .tip-search {
+        padding-left: 30px;
+        &:focus {
+            padding-left: 30px;
+        }
+    }
+     
+    .typeahead {
+        width: 400px;
+        overflow: hidden;    
     }
 }
 
-.guide-search {
-    position: relative;
-
-    .textboxlist-bits {
-        width: 910px;
-        padding-left: 26px;
+#guide-tip-form {
+    margin: 10px 0px;
+    .tip-search {
+        width: 900px;    
     }
-    
-    .textboxlist-autocomplete {
-        width: 943px;
-    }
-    
-    .search-img {
-        position: absolute;
-        top: 2px;
-        left: 2px;
+    .typeahead {
+        width: 935px;
     }
 }
 

@@ -18,39 +18,15 @@
     {% endif %}
 {% endmacro %}
 
-{% macro search() %}
-<li>
-<form class="navbar-search" action="{{ url_for('search.index') }}" method="get">
+{% macro search(id='', class='') %}
+<form id="{{ id }}" class="{{ class }} tip-form" action="{{ url_for('search.index') }}" method="get">
     <img class="search-img" src="{{ url_for('static', filename='img/search.png') }}" />
-    <input id="tip-search" class="span3" name="query" type="text" />
+    <input class="tip-search" name="query" type="text" autocomplete="off" placeholder="搜索 label，问题，资源" />
 </form>
-<script>
-$(function(){
-    textbox({
-        element: '#tip-search',
-        url: "{{ url_for('search.tips') }}",
-        format: tip_format,
-        placeholder:'搜索：标签，问题，资源',
-        on_selected: function(value){
-            location.href = value[0];
-            return false;
-        },
-        on_new: function(value){
-            if(!value[1]) return false;
-            $('#tip-search').val(value[1]);
-            $('#tip-search').parent('form').submit();
-            return false;
-        },
-        post_result: classify,
-    });
-});
-</script>
-
-</li>
 {% endmacro %}
 
 {% macro account(current_user) %}
-<li class="dropdown">
+<li class="dropdown auto-down">
     <a href="{{ url_for('user.home')}}" class="dropdown-toggle" data-toggle="dropdown">
         [{{ current_user.nickname }}]
     </a>
@@ -63,6 +39,16 @@ $(function(){
 
 
 {% macro reminds() %}
+<li class="dropdown auto-down">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        提醒
+    </a>
+    
+    <ul id="reminds" class="dropdown-menu">
+        <li><a>暂无消息</a></li> 
+    </ul>
+</li>
+
 <script>
     $(function(){
         function load_reminds(){
@@ -119,15 +105,6 @@ $(function(){
         setInterval(load_reminds, 10000);
     })
 </script>
-<li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        提醒
-    </a>
-    
-    <ul id="reminds" class="dropdown-menu">
-        <li><a>暂无消息</a></li> 
-    </ul>
-</li>
 {% endmacro %}
 
 
@@ -145,4 +122,20 @@ $(function(){
 </ul>
 {% endmacro %}
 
+{% macro textbox_css_js() %}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='textboxlist/TextboxList.css') }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='textboxlist/TextboxList.Autocomplete.css') }}"/>
+
+<script src="{{ url_for('static', filename='textboxlist/GrowingInput.js') }}" ></script>
+<script src="{{ url_for('static', filename='textboxlist/TextboxList.js') }}" ></script>
+<script src="{{ url_for('static', filename='textboxlist/TextboxList.Autocomplete.js') }}" ></script>
+<script src="{{ url_for('static', filename='textboxlist/TextboxList.Autocomplete.Custom.js') }}" ></script>
+
+<script>
+    $(function(){
+        
+    });
+</script>
+ 
+{% endmacro %}

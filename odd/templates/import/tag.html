@@ -71,6 +71,9 @@
 
 {% macro tag_editor(tags, action) %}
 
+{% from 'import.tools.html' import textbox_css_js %}
+{{ textbox_css_js() }}
+
 <div class="editable">
     <p class="edited">
     来自：
