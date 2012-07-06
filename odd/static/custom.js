@@ -1,5 +1,6 @@
-var searcher = null;
 $(function(){
+    var searcher = null;
+    
     $('.dropdown.auto-down').hover(function(){
         $(this).addClass('open');
     },function(){
@@ -8,19 +9,18 @@ $(function(){
 
     $('.tip-search').click(function(){
         var that = $(this)
-        if(searcher) return;
+        if(searcher != null) return
         $.getJSON('/search/tips', function(data){
             source = tip_format(data)
             searcher = search_init(that, source, 10)
         })
     })
 
-    textbox({
-            element: '#tag-search',
-            placeholder: '搜索：标签',
-            url: "{{ url_for('tag.obj') }}",
-            format: tag_format
-    });
+    $.each($('.tag-search'), function(i,v){
+        tag_search(v, [], false)
+    })
+
+    /*** editable ***/
 
     $('.editable').hover(function(){
         $('.edit', this).fadeIn('fast');
@@ -29,9 +29,10 @@ $(function(){
     });
 
     $('.editable .edit').click(function(){
-        var edited = $(this).parents('.edited');
-        var edit_form = edited.siblings('.edit-form')
-        var edited_item = $(this).siblings('.edited-item');
+        var editable = $(this).parents('.editable')
+        var edited = editable.find('.edited');
+        var edit_form = editable.find('.edit-form')
+        var edited_item = edited.find('.edited-item');
         var edit_item = edit_form.find('.edit-item');
         var edit_cancel = edit_form.find('.edit-cancel');
 
@@ -41,8 +42,10 @@ $(function(){
     });
     
     $('.editable .edit-cancel').click(function(){
-        var edit_form = $(this).parents('.edit-form');
-        var edited = edit_form.siblings('.edited')
+        var editable = $(this).parents('.editable')
+        var edited = editable.find('.edited');
+        var edit_form = editable.find('.edit-form')
+
         edit_form.hide('fast');
         edited.show('fast');
     })
@@ -51,7 +54,6 @@ $(function(){
         error: fail,
         success: success
     });
-
 
     $('.ajax-form').ajaxForm({
         error: fail,
@@ -249,6 +251,19 @@ function textbox(_options) {
             $('input',t.getContainer()).focus();
         }
     }); 
+
+    return t;
+}
+
+function tag_search(input, tags, empty_submit){
+    var t = textbox({
+        element: input,
+        init_values: tags,
+        empty_submit: empty_submit,
+        placeholder: '搜索：标签',
+        url: "/tag/obj",
+        format: tag_format
+    });
 
     return t;
 }
