@@ -183,10 +183,14 @@ function classify(items, max, query){
         }
     });
 
-    tags = tags.slice(0, max/3);
-    questions = questions.slice(0, max/3);
-    resources = resources.slice(0, max/3);
-    
+    sum = tags.length + questions.length + resources.length;
+
+    if(sum){
+        tags = tags.slice(0, tags.length / sum * max);
+        questions = questions.slice(0, questions.length / sum * max);
+        resources = resources.slice(0, resources.length / sum * max);
+    }
+
     pres = [['','搜索 '+query,'','/search/?query='+query]]
 
     return pres.concat(tags, questions, resources);
