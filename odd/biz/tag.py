@@ -21,6 +21,9 @@ def get_tag_by_tags(tags):
 def get_latest_tags(count, page=0):
     return db_session.query(Tag).order_by(Tag.id.desc()).limit(count).offset(page*count).all()
 
+def get_tag_by_like(query, count):
+    return db_session.query(Tag).filter(Tag.tag.like('%'+query+'%')).limit(count).all()
+
 def new_tag(tag):
     try:
         db_session.add(tag)

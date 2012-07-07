@@ -43,6 +43,9 @@ def get_resource_titles(count):
     resources = db_session.query(Resource.id, Resource.title).order_by(Resource.id.desc()).limit(count).all()
     return resources
 
+def get_resource_by_like(query, count):
+    return db_session.query(Resource).filter(Resource.title.like('%'+query+'%')).limit(count).all()
+
 def new_resource(resource, tags):
     new_tags(tags)
     db_session.add(resource)

@@ -54,6 +54,9 @@ def get_question_by_tag(tag):
     tags = db_session.query(Question_Tag).filter_by(tag=tag).all()
     return [t.question for t in tags]
 
+def get_question_by_like(query, count):
+    return db_session.query(Question).filter(Question.title.like('%'+query+'%')).limit(count).all()
+
 def new_question(question, tags):
     new_tags(tags)
     db_session.add(question)

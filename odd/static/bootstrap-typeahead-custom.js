@@ -29,6 +29,7 @@
   var Typeahead = function (element, options) {
     this.$element = $(element)
     this.options = $.extend({}, $.fn.typeahead.defaults, options)
+    this.lookup = this.options.lookup || this._lookup
     this.matcher = this.options.matcher || this._matcher
     this.sorter = this.options.sorter || this._sorter
     this.highlighter = this.options.highlighter || this._highlighter
@@ -70,7 +71,7 @@
       return this
     }
 
-  , lookup: function (event) {
+  , _lookup: function (event) {
       var that = this
         , items
         , q

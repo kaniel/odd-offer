@@ -1,19 +1,13 @@
 $(function(){
-    var searcher = null;
-    
+
     $('.dropdown.auto-down').hover(function(){
         $(this).addClass('open');
     },function(){
         $(this).removeClass('open');
     })
 
-    $('.tip-search').click(function(){
-        var that = $(this)
-        if(searcher != null) return
-        $.getJSON('/search/tips', function(data){
-            source = tip_format(data)
-            searcher = search_init(that, source, 10)
-        })
+    $.each($('.tip-search'), function(i,v){
+        search_init(v, [], 10, '/search/tips')
     })
 
     $.each($('.tag-search'), function(i,v){
@@ -112,12 +106,29 @@ $(function(){
 
 });
 
-function search_init(ele, source, max){
+function search_init(ele, source, max, url){
+    var cache = {};
+
     var typeahead = $(ele).typeahead({
         source: source,
         items : max,
         getter: function(item){
             return item[0]
+        },
+        lookup: function(event){
+            var query = $(ele).val()
+            if(query){
+                if(cache[query] != null){
+                    typeahead.source = cache[query]
+                }else{
+                    $.getJSON(url, {query:query}, function(data){
+                        typeahead.source = tip_format(data)
+                        cache[query] = typeahead.source
+                        typeahead._lookup(event)
+                    })
+                }
+            }
+            return typeahead._lookup(event)
         },
         sorter: function(items){
             items = typeahead._sorter(items)
