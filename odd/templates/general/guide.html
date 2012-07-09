@@ -10,7 +10,7 @@
 <section class="span3">
 <h3 class="alert alert-success">国家地区</h3>
 {% set country_tags = ['美国','加拿大','英国','香港','波士顿','洛杉矶','纽约','芝加哥','Chicago','boston','los angeles','new york','澳大利亚','新西兰','sydney'] %}
-{% for t in getter.tags(country_tags) %}
+{% for t in getter.get_tag_by_tags(country_tags) %}
 {{ tag_box(t, current_user) }}
 {% endfor %}
 </section>
@@ -18,7 +18,7 @@
 <section class="span3">
 <h3 class="alert alert-warning">学校</h3>
 {% set school_tags = ['university of sydney','imperial college london','New York University(NYU)','university of chicago','harvard university','columbia university','Michigan State University','University of Illinois--Urbana-Champaign(UIUC)','University of Wisconsin--Madison(UWM)'] %}
-{% for t in getter.tags(school_tags) %}
+{% for t in getter.get_tag_by_tags(school_tags) %}
 {{ tag_box(t, current_user) }}
 {% endfor %}
 </section>
@@ -26,7 +26,7 @@
 <section class="span3">
 <h3 class="alert alert-warning">专业</h3>
 {% set major_tags = ['药学','化学工程','电子工程','统计学','化工','物理','生物','数学','计算机','经济','商学','统计','EE','工程学','语言课程'] %}
-{% for t in getter.tags(major_tags) %}
+{% for t in getter.get_tag_by_tags(major_tags) %}
 {{ tag_box(t, current_user) }}
 {% endfor %}
 </section>
@@ -34,7 +34,7 @@
 <section class="span3">
 <h3 class="alert alert-error">热门话题</h3>
 {% set hot_tags = ['united airlines','行前准备','Tofel','gre','gmat','机票','打包','房','美国签证','美国生活'] %}
-{% for t in getter.tags(hot_tags) %}
+{% for t in getter.get_tag_by_tags(hot_tags) %}
 {{ tag_box(t, current_user) }}
 {% endfor %}
 </section>

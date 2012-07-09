@@ -8,7 +8,7 @@
 
 {% from 'import/user.html' import home_nav %}
 {% from 'import/topic.html' import question_box %}
-{% from 'import/resource.html' import normal_resource %}
+{% from 'import/resource.html' import resource_box %}
 
 <section class="span8">
 
@@ -38,9 +38,9 @@
             {% endfor %}
     
         </div>
-        <div class="tab-pane active" id="resource-tab">
+        <div class="tab-pane" id="resource-tab">
             {% for r in resources %}
-            {{ normal_resource(r, current_user) }}
+            {{ resource_box(r, current_user) }}
             <hr>
             {% endfor %}
         </div>

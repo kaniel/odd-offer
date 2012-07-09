@@ -2,10 +2,29 @@
 
 {% block content %}
 
-{% from 'import/resource.html' import resource_board %}
+{% from 'import/resource.html' import normal_resource, download_box %}
 
-<section class="span12">
-{{ resource_board(resource, current_user) }}
+<section class="span8">
+    {{ normal_resource(resource, current_user) }}
+    
+    <hr>
+    
+    下载量：{{ resource.download_count }}
+    
+    <hr>
+    
+    {{ download_box(resource) }}
 </section>
+
+<div class="span4">
+
+<section class="side-box clearfix">
+    <header class="border-small"><h5>最新资源</h5></header>
+    {% for r in getter.get_latest_resources(10) %}
+        <a class="line" href="{{ url_for('resource.index', id=r.id) }}">{{ r.title }}</a>   
+    {% endfor%}
+</section>
+
+</div>
 
 {% endblock %}

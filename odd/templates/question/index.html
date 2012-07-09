@@ -121,10 +121,10 @@ $(function(){
 
 <div class="span4">
 
-<section class="side-box thumbnail clearfix">
+<section class="side-box clearfix">
     <header class="border-small"><h5>最新问题</h5></header>
-    {% for q in latest_ques %}
-        <a class="line" href="{{ url_for('question.index', id=q.id) }}">{{ q.title }}</a>   
+    {% for q in getter.get_latest_questions(10) %}
+    <a class="line" href="{{ url_for('question.index', id=q.id) }}">{{ q.title }}</a>   
     {% endfor%}
 </section>
 

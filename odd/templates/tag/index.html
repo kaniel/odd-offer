@@ -18,12 +18,12 @@
     {% endfor %}
 </section>
 
-{% from 'import/resource.html' import normal_resource %}
+{% from 'import/resource.html' import resource_box %}
 
 <section class="span6">
     <header><h5 class="border-medium">资源</h5></header>
     {% for r in resources %}
-        {{ normal_resource(r) }}
+        {{ resource_box(r, current_user) }}
         <hr>
     {% endfor %}
 </section>

@@ -1,5 +1,5 @@
 {% macro question_box(q, current_user) %}
-<section id="question-{{ q.id }}" class="question {{ 'focus' if focus }} thumbnail">
+<section id="question-{{ q.id }}" class="question thumbnail">
 <header>
     <a class="title" href="{{ url_for('question.index', id=q.id) }}"><h4>{{ q.title }}</h4></a>
     <p>
@@ -23,14 +23,14 @@
 {% endmacro %}
 
 {% macro normal_comment(a, current_user) %}
-<section id="comments-{{ a.id }}" class="comments thumbnail">
+<section id="comments-{{ a.id }}" class="comments">
 {% for c in a.comments %}
 <div id="comment-{{ c.id }}" class="comment clearfix">
     <img class="pull-left" src="{{ url_for('static', filename=c.user.photo(20)) }}" />
     <div class="pull-left">
         <p>
         <a class="nickname" href="{{ url_for('user.index', nickname=c.user.nickname) }}">{{ c.user.nickname }}</a>
-        ：{{ c.content }}
+        ：<code>{{ c.content }}</code>
         </p>
         <p>
         <small>{{ c.create_time }}</small>
@@ -54,49 +54,58 @@
 {% endmacro %}
 
 {% macro normal_answer(a, current_user) %}
-<section id="answer-{{ a.id }}" class="answer thumbnail">
-<div class="vote thumbnail" data-id="{{ a.id }}">
-    <span class="score">{{ a.up }}</span>
-    <button class="up">顶</button>
-</div>
+<section id="answer-{{ a.id }}" class="answer">
+    <div class="vote" data-id="{{ a.id }}">
+        <span class="score">{{ a.up }}</span>
+        <button class="up">顶</button>
+    </div>
 
-<blockquote>
-    <p>{{ a.content }}</p>
-    <small>
-        <a href="{{ url_for('user.index', nickname=a.user.nickname) }}">
-            <img src="{{ url_for('static', filename=a.user.photo(20)) }}" />
-            {{ a.user.nickname }}
-        </a> 
-    </small>
-</blockquote>
-<footer>
-<a href="javascript:;" data-toggle="collapse" data-target="#comments-collapse-{{ a.id }}">
-    {% set count = a.comments|length %}
-    {% if count %}
-    {{ count }}条评论
-    {% else %}
-    评论
-    {% endif %}
-</a>
-<span class="pull-right small">{{ a.create_time }}</span>
-<div id="comments-collapse-{{ a.id }}" class="collapse" style="margin-top:5px;height: 0px;">
-    {{ normal_comment(a, current_user) }}
-</div>
-</footer>
+    <pre>{{ a.content }}</pre>
+    
+    <blockquote class="simple-quote">
+        <small>
+            <a href="{{ url_for('user.index', nickname=a.user.nickname) }}">
+                <img src="{{ url_for('static', filename=a.user.photo(20)) }}" />
+                {{ a.user.nickname }}
+            </a> 
+        </small>
+    </blockquote>
+    
+    <footer>
+        <a href="javascript:;" data-toggle="collapse" data-target="#comments-collapse-{{ a.id }}">
+        {% set count = a.comments|length %}
+        {% if count %}
+            {{ count }}条评论
+        {% else %}
+            评论
+        {% endif %}
+        </a>
+    
+        <span class="pull-right small">{{ a.create_time }}</span>
+    
+        <div id="comments-collapse-{{ a.id }}" class="collapse" style="margin-top:5px;height: 0px;">
+            <hr>
+            {{ normal_comment(a, current_user) }}
+        </div>
+    </footer>
 </section>
 {% endmacro %}
 
 {% macro normal_question(q, current_user) %}
 
-<section id="question-{{ q.id }}" class="question thumbnail">
+<section id="question-{{ q.id }}" class="question">
     <header>
-        <a class="title" href="{{ url_for('question.index', id=q.id) }}"><h4>{{ q.title }}</h4></a>
+        <h2>{{ q.title }}</h2>
+        <hr>
         {% from 'import/tag.html' import tag_editor %}
         {{ tag_editor(q.tags, url_for('question.tags', id=q.id)) }}
     </header>
 
-    <blockquote>
-        <p>{{ q.content }}</p>
+    <hr>
+
+    <pre>{{ q.content }}</pre>
+
+    <blockquote class="simple-quote">
         <small>
             <a href="{{ url_for('user.index', nickname=q.user.nickname) }}">
                 <img src="{{ url_for('static', filename=q.user.photo(20)) }}" />

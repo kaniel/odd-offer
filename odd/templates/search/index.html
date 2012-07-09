@@ -54,9 +54,9 @@
 <h5 class="border-medium">资源</h5>
 {% if resources %}
 
-{% from 'import/resource.html' import normal_resource %}
+{% from 'import/resource.html' import resource_box %}
 {% for r in resources %}
-    {{ normal_resource(r, current_user) }}
+    {{ resource_box(r, current_user) }}
     <hr>
 {% endfor %}
 

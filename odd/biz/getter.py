@@ -1,4 +1,5 @@
-from odd.biz.tag import get_tag_by_tags
+# -*- coding: utf-8 -*-
 
-def tags(tags):
-    return get_tag_by_tags(tags)
+from odd.biz.tag import get_tag_by_tags
+from odd.biz.question import get_latest_questions
+from odd.biz.resource import get_latest_resources

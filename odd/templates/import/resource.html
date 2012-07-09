@@ -22,35 +22,32 @@
 {% endmacro %}
 
 
-{% macro normal_resource(r, current_user, content=False) %}
-<section id="resource-{{ r.id }}" class="resource thumbnail">
-        <header>
-        <a class="title" href="{{ url_for('resource.index', id=r.id) }}"><h4>{{ r.title }}</h4></a>
+{% macro normal_resource(r, current_user) %}
+<section id="resource-{{ r.id }}" class="resource">
+    <header>
+        <h2>{{ r.title }}</h2>
+        <hr>
         {% from 'import/tag.html' import tag_editor %}
         {{ tag_editor(r.tags, url_for('resource.tags', id=r.id)) }}
-       </header>
+    </header>
+    
+    <hr>
         
-        {% if content %}
-        <blockquote>
-            <p>{{ r.desc }}</p>
-            <small>
-                <a href="{{ url_for('user.index', nickname=r.user.nickname) }}">
-                    <img src="{{ url_for('static', filename=r.user.photo(20)) }}" />
-                    {{ r.user.nickname }}
-                </a>
-            </small>
-        </blockquote>
-       {% endif %}
+    <pre>{{ r.desc }}</pre>
 
-        <footer>
-        {% if content %}
-            &nbsp
-            <span class="small pull-right">{{ r.create_time }}</span>
-        {% else %}
-            <span class="small">{{ r.create_time }}</span>
-            <span class="small pull-right">下载量：{{ r.download_count }}</span>
-            {% endif %}
-        </footer>
+    <blockquote class="simple-quote">
+        <small>
+            <a href="{{ url_for('user.index', nickname=r.user.nickname) }}">
+                <img src="{{ url_for('static', filename=r.user.photo(20)) }}" />
+                {{ r.user.nickname }}
+            </a>
+        </small>
+    </blockquote>
+
+    <footer>
+        &nbsp
+        <span class="small pull-right">{{ r.create_time }}</span>
+    </footer>
 </section>
 
 {% endmacro %}
@@ -81,12 +78,4 @@
         });
     });
 </script> 
-{% endmacro %}
-
-{% macro resource_board(r, current_user) %}
-{{ normal_resource(r, current_user, True) }}
-<hr>
-下载量：{{ r.download_count }}
-<hr>
-{{ download_box(r) }}
 {% endmacro %}

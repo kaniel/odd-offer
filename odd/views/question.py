@@ -27,9 +27,7 @@ def index(id):
     answer_id = request.args.get('answer_id', -1, type=int)
     comment_id = request.args.get('comment_id', -1, type=int)
 
-    latest_ques = get_latest_questions(10)
-
-    return render_template('question/index.html', question=question, answer_id=answer_id, comment_id=comment_id, latest_ques=latest_ques)
+    return render_template('question/index.html', question=question, answer_id=answer_id, comment_id=comment_id)
 
 @mod.route('/list')
 @login_required
