@@ -40,18 +40,7 @@ class User(Model, UserMixin):
         return md5(self.email.lower()).hexdigest() 
 
     def photo(self,size):
-        name = 'photos/%d-%d.jpg'
-        filename = name % (self.id, size)
-        if isfile(join(app.static_folder, filename)):
-            return filename
-        
-        filename = name % (0, size)
-        if isfile(join(app.static_folder, filename)):
-            return filename
-
-        filename = name % (0, 20)
-        if isfile(join(app.static_folder, filename)):
-            return path
+        return 'photos/%d-%d.jpg' % (self.id, 90)
 
     def tag_is_followed(self, tag):
         tags = [tf.tag for tf in self.tag_follows]

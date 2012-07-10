@@ -3,7 +3,7 @@
 
 <div class="editable span1 offset0" style="position:relative;">
     <div class="edited">
-        <img class="pull-left" src="{{ url_for('static', filename=tag.tag_photo(90)) }}" />
+        <img class="size-90 pull-left" src="{{ url_for('static', filename=tag.tag_photo(90)) }}" />
         <a class="tag-photo-edit edit small" href="javascript:;"><i class="icon-pencil"></i> 修改</a>
     </div>
     <form class="tag-photo-form edit-form" action="{{ url_for('tag.photo', id=tag.id) }}" method="post">
@@ -30,23 +30,6 @@
     </div>
 </blockquote>
 
-{#
-<div class="modal hide fade" id="tag-photo-modal">
-    <form class="ajax-form plain-form" action="{{ url_for('tag.photo', id=tag.id) }}" method="post" enctype="multipart/form-data">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3>标签头像</h3>
-    </div>
-    <div class="modal-body">
-        <input name="tag_photo" type="file"/>
-    </div>
-    <div class="modal-footer">
-        <input class="btn btn-primary" type="submit" value="修改" />
-        <a href="#" class="btn" data-dismiss="modal">取消</a>
-    </div>
-    </form>
-</div>
-#}
 <button class="unfollow span2 btn btn-danger {{ 'hide' if not has_followed  }}" data-tag="{{ tag.tag }}">取消关注</button>
 <button class="follow span2 btn btn-info {{ 'hide' if has_followed  }}" data-tag="{{ tag.tag }}">关注</button>
 </section>
@@ -61,7 +44,7 @@
 <button class="only-follow follow-button btn btn-info btn-mini hide" data-tag="{{ tag.tag }}">关注</button>
 <span class="has-follow follow-button label label-warning hide">已关注</span>
 {% endif %}
-<img src="{{ url_for('static', filename=tag.tag_photo(90)) }}" /> 
+<img class="size-90" src="{{ url_for('static', filename=tag.tag_photo(90)) }}" /> 
 <hr class="hr-tiny">
 <a href="{{ url_for('tag.index', tag=tag.tag) }}"><h5 class="text-center">{{ tag.tag }}</h5></a>
 </section>

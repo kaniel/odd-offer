@@ -26,7 +26,7 @@
 <section id="comments-{{ a.id }}" class="comments">
 {% for c in a.comments %}
 <div id="comment-{{ c.id }}" class="comment clearfix">
-    <img class="pull-left" src="{{ url_for('static', filename=c.user.photo(20)) }}" />
+    <img class="size-20 pull-left" src="{{ url_for('static', filename=c.user.photo(20)) }}" />
     <div class="pull-left">
         <p>
         <a class="nickname" href="{{ url_for('user.index', nickname=c.user.nickname) }}">{{ c.user.nickname }}</a>
@@ -42,7 +42,7 @@
 {% endfor %}
 
 <div class="clearfix">
-    <img class="pull-left" src="{{ url_for('static', filename=current_user.photo(20)) }}" />
+    <img class="size-20 pull-left" src="{{ url_for('static', filename=current_user.photo(20)) }}" />
     <form class="comment-form form-inline">
         <input name="answer_id" type="hidden" value="{{ a.id }}">
         <input name="comment_id" type="hidden" value="-1">
@@ -65,7 +65,7 @@
     <blockquote class="simple-quote">
         <small>
             <a href="{{ url_for('user.index', nickname=a.user.nickname) }}">
-                <img src="{{ url_for('static', filename=a.user.photo(20)) }}" />
+                <img class="size-20" src="{{ url_for('static', filename=a.user.photo(20)) }}" />
                 {{ a.user.nickname }}
             </a> 
         </small>
@@ -108,7 +108,7 @@
     <blockquote class="simple-quote">
         <small>
             <a href="{{ url_for('user.index', nickname=q.user.nickname) }}">
-                <img src="{{ url_for('static', filename=q.user.photo(20)) }}" />
+                <img class="size-20" src="{{ url_for('static', filename=q.user.photo(20)) }}" />
                 {{ q.user.nickname }}
             </a>
         </small>

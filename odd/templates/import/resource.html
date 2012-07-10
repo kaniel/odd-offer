@@ -38,7 +38,7 @@
     <blockquote class="simple-quote">
         <small>
             <a href="{{ url_for('user.index', nickname=r.user.nickname) }}">
-                <img src="{{ url_for('static', filename=r.user.photo(20)) }}" />
+                <img class="size-90" src="{{ url_for('static', filename=r.user.photo(20)) }}" />
                 {{ r.user.nickname }}
             </a>
         </small>

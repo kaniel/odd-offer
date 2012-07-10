@@ -12,6 +12,7 @@ from odd.biz.resource import *
 mod = Blueprint('search', __name__, url_prefix='/search')
 
 @mod.route('/')
+@login_required
 def index():
     query = request.args.get('query')
     if not query:

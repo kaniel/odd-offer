@@ -23,18 +23,7 @@ class Tag(Model):
         self.create_time = datetime.now()
 
     def tag_photo(self,size):
-        name = 'tag_photos/%d-%d.jpg'
-        filename = name % (self.id, size)
-        if isfile(join(app.static_folder, filename)):
-            return filename
-        
-        filename = name % (0, size)
-        if isfile(join(app.static_folder, filename)):
-            return filename
-
-        filename = name % (0, 20)
-        if isfile(join(app.static_folder, filename)):
-            return filename
+        return 'tag_photos/%d-%d.jpg' % (self.id, 90)
 
     def __repr__(self):
         return '<Tag %s>' % self.tag
