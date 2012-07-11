@@ -38,7 +38,7 @@ def tips():
     tags = [{
         'id': t.id, 
         'tag': t.tag, 
-        'photo': t.tag_photo(20)
+        'photo_url': t.tag_photo_url(20)
         } for t in get_tag_by_like(query, count)]
             
 
@@ -53,3 +53,15 @@ def tips():
         } for r in get_resource_by_like(query, count)]
 
     return jsonify(status='SUCCESS', tags=tags, questions=questions, resources=resources)
+
+@mod.route('/tags')
+def tags():
+    tags = get_all_tags()
+    ts = []
+    for t in tags:
+        ts.append({
+            'id': t.id,
+            'tag': t.tag,
+            'photo_url': t.tag_photo_url(20)
+            })
+    return jsonify(errno='SUCCESS', tags=ts)

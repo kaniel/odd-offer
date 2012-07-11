@@ -11,9 +11,9 @@
     {{ form.csrf }}
 
     <div class="span2" style="text-align:center">
-        <img class="size-20" src="{{ url_for('static', filename=current_user.photo(20)) }}"/>
+        <img class="size-20" src="{{ current_user.photo_url(20) }}"/>
 	<hr>
-        <img class="size-90" src="{{ url_for('static', filename=current_user.photo(90)) }}"/>
+        <img class="size-90" src="{{ current_user.photo_url(90) }}"/>
     </div>
 
     <div class="span5">

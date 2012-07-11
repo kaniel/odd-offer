@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from os.path import abspath, join
+from os.path import abspath
 
 #config
 DEBUG = True
-PRODUCTION_CONFIG = join(abspath('.'), '../website_config.py')
+SEND_FILE_MAX_AGE_DEFAULT = 1
+PRODUCTION_CONFIG = abspath('.') + '/../website_config.py'
+
+#upload
+PHOTOS = abspath('.') + '/../photos'
+TAG_PHOTOS = abspath('.') + '/../tag_photos'
+RESOURCES = abspath('.') + '/../resources'
 
 #img
 ALLOWED_IMGS = ['jpg', 'jpeg', 'png']

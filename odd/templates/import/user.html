@@ -3,7 +3,7 @@
 <section class="user-info side-box thumbnail clearfix">
     <header class="border-small"><h5>本尊</h5></header>
     <div class="span1">
-        <img src="{{ url_for('static', filename=user.photo(90)) }}" />
+        <img src="{{ user.photo_url(90) }}" />
     </div>
     <blockquote class="simple-quote span2">
         <h3>{{ user.nickname }}</h3>

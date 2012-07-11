@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from os.path import join
-
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template
 from flask.ext.login import LoginManager
 
 app = Flask(__name__)
@@ -65,12 +63,6 @@ def load_user(user_id):
 
 @app.errorhandler(404)
 def not_found(error):
-    parts = request.path.split('/', 3)
-
-    #send default photo
-    if len(parts) == 4 and parts[1] == 'static' and parts[2] in ['photos', 'tag_photos'] :
-        return send_from_directory(join(app.static_folder, parts[2]), 'default.jpg')
-
     return render_template('404.html'), 404
 
 @app.errorhandler(413)

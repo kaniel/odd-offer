@@ -1,15 +1,37 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, url_for, redirect, render_template, abort
+from os.path import isfile
+
+from flask import Blueprint, url_for, redirect, render_template, abort, send_from_directory
 from flask.ext.login import login_required, current_user
 from flaskext.wtf import Form, TextField, PasswordField, BooleanField, Required, Email, EqualTo, Regexp, ValidationError
 
+from odd import app
 from odd.utils.error import *
 
 from odd.biz.user import *
 from odd.biz.tag import get_tag_by_tags
 
 mod = Blueprint('general', __name__)
+
+@mod.route('/photos/<img>')
+def photo(img):
+    if not isfile(app.config['PHOTOS'] + '/' + img):
+        return app.send_static_file('img/user.jpg')
+    return send_from_directory(app.config['PHOTOS'], img)
+
+@mod.route('/tag_photos/<img>')
+def tag_photo(img):
+    if not isfile(app.config['TAG_PHOTOS'] + '/' + img):
+        return app.send_static_file('img/tag.jpg')
+    return send_from_directory(app.config['TAG_PHOTOS'], img)
+
+@mod.route('/resources/<path:path>')
+def resource(path):
+    if not isfile(app.config['RESOURCES'] + '/' + path):
+        abort(404)
+    return send_from_directory(app.config['RESOURCES'], path)
+
 
 @mod.route('/')
 def index():

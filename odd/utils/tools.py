@@ -4,11 +4,12 @@ from os import makedirs
 from os.path import splitext, join, isdir, sep, altsep
 from subprocess import call
 from re import compile
+
 from odd import app
 
 _filename_strip_re = compile(r'[^A-Za-z0-9_.-]')
 
-def secure_filename(filename, default):
+def secure_filename(filename, default='file'):
     for s in sep, altsep:
         if s:
             filename = filename.replace(s, ' ')
@@ -24,7 +25,7 @@ def file_type(file_name):
     return ext
 
 def save_photo(id, img):
-    photo_path = app.static_folder+'/photos'
+    photo_path = app.config['PHOTOS']
     ext = file_type(img.filename)
     if not ext in app.config['ALLOWED_IMGS']:
         return False
@@ -36,7 +37,7 @@ def save_photo(id, img):
     return True
 
 def save_tag_photo(id, img):
-    photo_path = app.static_folder+'/tag_photos'
+    photo_path = app.config['TAG_PHOTOS']
     ext = file_type(img.filename)
     if not ext in app.config['ALLOWED_IMGS']:
         return False
@@ -48,13 +49,12 @@ def save_tag_photo(id, img):
     return True
 
 def save_resource(id, files):
-    resources_path = app.static_folder+'/resources'
+    resources_path = app.config['RESOURCES']
     res_path = join(resources_path, str(id))
     if not isdir(res_path):
         makedirs(res_path)
     for f in files:
-        filename = secure_filename(f.filename, 'file')
-        f.save(join(res_path, filename))
+        f.save(join(res_path, f.filename))
     zip_cmd = 'cd %s && zip -r %d.zip %d'
     call(zip_cmd % (resources_path, id, id), shell=True)
     return True

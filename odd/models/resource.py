@@ -18,23 +18,30 @@ class Resource(Model):
     user_id = Column('user_id', INT, ForeignKey('users.id'), nullable=False)
     title = Column('title', VARCHAR(128), nullable=False)
     desc = Column('description', TEXT, nullable=False)
+    file_list = Column('file_list', VARCHAR(512), nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False)
     download_count = Column('download_count', INT, nullable=False)
     
     user = relation('User')
     tags = relation("Resource_Tag", backref=backref('resource'), order_by='Resource_Tag.id')
 
-    def __init__(self, user_id, title, desc, tags):
+    def __init__(self, user_id, title, desc, file_list, tags):
         self.user_id = user_id
         self.title = title
         self.desc = desc
+        self.file_list = file_list
         self.tags = [Resource_Tag(self.id, tag) for tag in tags]
         self.create_time = datetime.now()
         self.download_count = 0
 
-    def file_list(self):
-        path = join(app.static_folder, 'resources', str(self.id))
-        return listdir(unicode(path))
+    def files(self):
+        return self.file_list.split('//')
+
+    def zip_url(self):
+        return '/resources/%d.zip' % self.id
+
+    def file_url(self, file):
+        return '/resources/%d/%s' % (self.id, file)
         
     def __repr__(self):
         return '<Resource %r>' % self.title

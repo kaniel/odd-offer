@@ -71,6 +71,7 @@ def clean_files(files):
     for f in files:
         ext = file_type(f.filename)
         if ext in app.config['ALLOWED_DOCS']:
+            f.filename = secure_filename(f.filename)
             files_clean.append(f)
     return files_clean
 
@@ -89,9 +90,10 @@ def new():
     
     title = form.title.data
     desc = form.desc.data
+    file_list = [f.filename for f in files]
     tags = clean_tags(form.tags.data.split(','))
 
-    resource = Resource(current_user.id, title, desc, tags)
+    resource = Resource(current_user.id, title, desc, '//'.join(file_list), tags)
     ret = new_resource(resource, tags)
     if ret != RESOURCE_ADD_OK:
         fail(ret)

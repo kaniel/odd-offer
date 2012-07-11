@@ -4,6 +4,7 @@ from datetime import datetime
 from hashlib import md5
 from os.path import isfile, join
 
+from flask import url_for
 from flask.ext.login import UserMixin
 
 from sqlalchemy.orm import relation
@@ -39,8 +40,8 @@ class User(Model, UserMixin):
     def email_hash(self):
         return md5(self.email.lower()).hexdigest() 
 
-    def photo(self,size):
-        return 'photos/%d-%d.jpg' % (self.id, 90)
+    def photo_url(self,size):
+        return '/photos/%d-%d.jpg' % (self.id, size)
 
     def tag_is_followed(self, tag):
         tags = [tf.tag for tf in self.tag_follows]

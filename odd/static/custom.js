@@ -150,15 +150,15 @@ function tip_format(data){
     var tips = []
 
     $.each(data.tags,function(i,tag){
-        tips.push([tag.tag, '<img src="/static/'+tag.photo+'" /> &&', 'tag', '/tag/'+tag.tag]);  
+        tips.push([tag.tag, '<img class="size-20" src="'+tag.photo_url+'" /> &&', 'tag', '/tag/'+tag.tag]);  
     });
 
     $.each(data.questions,function(i,que){
-        tips.push([que.title, '<img src="/static/img/question.png" /> &&', 'question', '/question/'+que.id]);
+        tips.push([que.title, '<img class="size-20" src="/static/img/question.png" /> &&', 'question', '/question/'+que.id]);
     });
 
     $.each(data.resources,function(i,res){
-        tips.push([res.title, '<img src="/static/img/resource.png" /> &&', 'resource', '/resource/'+res.id]);  
+        tips.push([res.title, '<img class="size-20" src="/static/img/resource.png" /> &&', 'resource', '/resource/'+res.id]);  
     });
 
     return tips;
@@ -216,7 +216,7 @@ function success(data){
 function tag_format(data){
     var tags = []
     $.each(data.tags,function(i,t){
-        tags.push([t.tag, t.tag, null, '<img src="/static/'+t.photo+'" />'+t.tag]);
+        tags.push([t.tag, t.tag, null, '<img class="size-20" src="'+t.photo_url+'" />'+t.tag]);
     });
     return tags;
 }
@@ -276,7 +276,7 @@ function tag_search(input, tags, empty_submit){
         init_values: tags,
         empty_submit: empty_submit,
         placeholder: '搜索：标签',
-        url: "/tag/obj",
+        url: "/search/tags",
         format: tag_format
     });
 

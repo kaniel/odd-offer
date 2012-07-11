@@ -6,6 +6,8 @@ from os.path import isfile, join
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import INT, VARCHAR, TEXT, TIMESTAMP
 
+from flask import url_for
+
 from odd import app
 from odd.data.db import Model
 
@@ -22,8 +24,8 @@ class Tag(Model):
         self.description = description
         self.create_time = datetime.now()
 
-    def tag_photo(self,size):
-        return 'tag_photos/%d-%d.jpg' % (self.id, 90)
+    def tag_photo_url(self,size):
+        return '/tag_photos/%d-%d.jpg' % (self.id, size)
 
     def __repr__(self):
         return '<Tag %s>' % self.tag
