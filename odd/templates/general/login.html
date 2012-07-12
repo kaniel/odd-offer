@@ -98,7 +98,7 @@
         {{ flashed_msg() }}
     
         {{ form.hidden_tag() }}
-        {{ form.csrf }}
+        {{ form.csrf_token }}
     
         {{ form.email(class="span3",type="text",style="height:30px; width:255px" ,placeholder="填入注册邮箱" ) }} 
         {{ error(form.errors['email']) }}

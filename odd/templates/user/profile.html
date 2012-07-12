@@ -8,7 +8,7 @@
     <h3 class="alert alert-info">个人信息</h3>
 
     {{ form.hidden_tag() }}
-    {{ form.csrf }}
+    {{ form.csrf_token }}
 
     <div class="span2" style="text-align:center">
         <img class="size-20" src="{{ current_user.photo_url(20) }}"/>

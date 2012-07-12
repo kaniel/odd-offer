@@ -11,7 +11,7 @@
     <h3 class="alert alert-info">传资源</h3>
 
     {{ form.hidden_tag() }}
-    {{ form.csrf }}
+    {{ form.csrf_token }}
 
     {{ form.title.label }}
     {{ form.title(class="text") }}

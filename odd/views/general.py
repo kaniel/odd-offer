@@ -4,7 +4,7 @@ from os.path import isfile
 
 from flask import Blueprint, url_for, redirect, render_template, abort, send_from_directory
 from flask.ext.login import login_required, current_user
-from flaskext.wtf import Form, TextField, PasswordField, BooleanField, Required, Email, EqualTo, Regexp, ValidationError
+from flask.ext.wtf import Form, TextField, PasswordField, BooleanField, Required, Email, EqualTo, Regexp, ValidationError
 
 from odd import app
 from odd.utils.error import *

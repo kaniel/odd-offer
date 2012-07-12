@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, render_template
-from flask.ext.login import LoginManager
 
 app = Flask(__name__)
 
@@ -28,7 +27,6 @@ from odd.views import tag
 from odd.views import search
 from odd.views import follow
 from odd.views import remind
-from odd.views import admin
 from odd.views import resource
 
 app.register_blueprint(general.mod)
@@ -39,12 +37,12 @@ app.register_blueprint(tag.mod)
 app.register_blueprint(search.mod)
 app.register_blueprint(follow.mod)
 app.register_blueprint(remind.mod)
-app.register_blueprint(admin.mod)
 app.register_blueprint(resource.mod)
 
 #
 # Login
 #
+from flask.ext.login import LoginManager
 from odd.biz.user import get_user_by_id
 
 login_manager = LoginManager()
@@ -100,10 +98,3 @@ if not app.debug:
     sh.setFormatter(ft)
     sh.setLevel(logging.ERROR)
     app.logger.addHandler(sh)
-
-'''
-import logging
-logger = logging.getLogger('sqlalchemy.engine')
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
-'''

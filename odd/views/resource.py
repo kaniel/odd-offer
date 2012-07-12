@@ -2,7 +2,7 @@
 
 from flask import Blueprint, url_for, redirect, render_template, abort, request, jsonify
 from flask.ext.login import login_required, current_user
-from flaskext.wtf import Form, TextField, TextAreaField, FileField, FieldList, Required, Length
+from flask.ext.wtf import Form, TextField, TextAreaField, FileField, FieldList, Required, Length
 
 from odd.utils.error import *
 from odd.utils.tools import *
