@@ -35,3 +35,4 @@ ERROR_LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(li
 
 MAIL_HOST = '127.0.0.1'
 MY_ADDR = 'odd@offerduoduo.com'
+ADMIN_ADDRS = ['wsxys08@gmail.com']
