@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, url_for, redirect, render_template, abort, request, jsonify
+from flask import Blueprint, url_for, redirect, render_template, abort, request, jsonify, json
 from flask.ext.login import login_required, current_user
 from flask.ext.wtf import Form, TextField, TextAreaField, FileField, FieldList, Required, Length
 
@@ -90,10 +90,10 @@ def new():
     
     title = form.title.data
     desc = form.desc.data
-    file_list = [f.filename for f in files]
+    file_list = json.dumps([{'name':f.filename} for f in files])
     tags = clean_tags(form.tags.data.split(','))
 
-    resource = Resource(current_user.id, title, desc, '//'.join(file_list), tags)
+    resource = Resource(current_user.id, title, desc, file_list, tags)
     ret = new_resource(resource, tags)
     if ret != RESOURCE_ADD_OK:
         fail(ret)

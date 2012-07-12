@@ -2,10 +2,11 @@
 
 from db import *
 
+import json
 from os import listdir
 from os.path import isdir
 
-resource_path = u'/home/qw/git/odd_release/resources'
+resource_path = u'/home/odd/release/resources'
 
 file_list = []
 for f in  listdir(resource_path):
@@ -13,7 +14,7 @@ for f in  listdir(resource_path):
     if isdir(path):
         file_list.append({
             'id': f,
-            'list': '//'.join(listdir(path))
+            'list': json.dumps([{'name':n}  for n in listdir(path)])
             })
 
 #更新资源的file_list

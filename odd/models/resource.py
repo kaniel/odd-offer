@@ -8,6 +8,8 @@ from sqlalchemy.orm import relation, backref
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import INT, VARCHAR, TIMESTAMP, TEXT
 
+from flask import json
+
 from odd import app
 from odd.data.db import Model
 
@@ -35,7 +37,7 @@ class Resource(Model):
         self.download_count = 0
 
     def files(self):
-        return self.file_list.split('//')
+        return json.loads(self.file_list)
 
     def zip_url(self):
         return '/resources/%d.zip' % self.id

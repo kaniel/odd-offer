@@ -38,7 +38,7 @@
     <blockquote class="simple-quote">
         <small>
             <a href="{{ url_for('user.index', nickname=r.user.nickname) }}">
-                <img class="size-90" src="{{ r.user.photo_url(20) }}" />
+                <img class="size-20" src="{{ r.user.photo_url(20) }}" />
                 {{ r.user.nickname }}
             </a>
         </small>
@@ -55,7 +55,7 @@
 {% macro download_box(r) %}
 <ul class="span3">
     {% for f in r.files() %}
-    <li class="small">{{ f }}</li>
+    <li class="small">{{ f.name }}</li>
     {% endfor %}
 </ul>
 
