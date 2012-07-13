@@ -1,0 +1,22 @@
+### project dependency ###
+
+# OS
+ubuntu11.10
+
+# Web Server
+nginx
+
+# Programing Language
+python
+
+# DB
+mysql
+
+# Version Control
+pythonbrew
+git
+
+# Tools 
+convert
+zip
+postfix

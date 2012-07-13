@@ -1,6 +1,8 @@
+### install steps ###
+## for reference only! ##
+
 ubuntu11.10
 
-/***********************************************/
 /etc/apt/sources.list 
     cn.archive.ubuntu.com -> mirrors.163.com
 

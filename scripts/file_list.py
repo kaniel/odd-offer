@@ -7,6 +7,7 @@ from os import listdir
 from os.path import isdir
 
 resource_path = u'/home/odd/release/resources'
+#resource_path = u'/home/qw/git/odd_release/resources'
 
 file_list = []
 for f in  listdir(resource_path):

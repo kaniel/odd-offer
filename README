@@ -2,7 +2,7 @@ offerduoduo
 
 =todo
 insert ignore
-ajax取回结果后无需刷新
-form多值
+ajax without fresh
+form multi value and custom validation
 cache
-page
+pagination

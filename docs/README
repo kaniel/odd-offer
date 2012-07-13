@@ -1,6 +1,11 @@
-=servers=
-nginx server
+=dependency=
+softwares needed
 
-=packages=
-==python==
-deploy/pip.list
+=install=
+install steps for reference only
+
+=problems=
+problems and solutions
+
+=pip=
+python packages needed
