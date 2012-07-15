@@ -25,7 +25,7 @@ class Tag(Model):
         self.create_time = datetime.now()
 
     def tag_photo_url(self,size):
-        return '/tag_photos/%d-%d.jpg' % (self.id, size)
+        return url_for('general.tag_photo', id=self.id, size=size)
 
     def __repr__(self):
         return '<Tag %s>' % self.tag

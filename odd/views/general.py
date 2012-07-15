@@ -2,7 +2,7 @@
 
 from os.path import isfile
 
-from flask import Blueprint, url_for, redirect, render_template, abort, send_from_directory
+from flask import Blueprint, url_for, redirect, render_template, abort, send_from_directory, send_file
 from flask.ext.login import login_required, current_user
 from flask.ext.wtf import Form, TextField, PasswordField, BooleanField, Required, Email, EqualTo, Regexp, ValidationError
 
@@ -14,24 +14,25 @@ from odd.biz.tag import get_tag_by_tags
 
 mod = Blueprint('general', __name__)
 
-@mod.route('/photos/<img>')
-def photo(img):
-    if not isfile(app.config['PHOTOS'] + '/' + img):
+@mod.route('/photos/<int:id>-<int:size>.jpg')
+def photo(id, size):
+    path = '%s/%d-%d.jpg' % (app.config['PHOTOS'], id, size)
+    print path
+    if not isfile(path):
         return app.send_static_file('img/user.jpg')
-    return send_from_directory(app.config['PHOTOS'], img)
+    return send_file(path)
 
-@mod.route('/tag_photos/<img>')
-def tag_photo(img):
-    if not isfile(app.config['TAG_PHOTOS'] + '/' + img):
+@mod.route('/tag_photos/<int:id>-<int:size>.jpg')
+def tag_photo(id, size):
+    path = '%s/%d-%d.jpg' % (app.config['TAG_PHOTOS'], id, size)
+    if not isfile(path):
         return app.send_static_file('img/tag.jpg')
-    return send_from_directory(app.config['TAG_PHOTOS'], img)
+    return send_file(path)
 
-@mod.route('/resources/<path:path>')
-def resource(path):
-    if not isfile(app.config['RESOURCES'] + '/' + path):
-        abort(404)
-    return send_from_directory(app.config['RESOURCES'], path)
-
+@mod.route('/resources/<int:id>.zip')
+def zip(id):
+    path = '%s/%d.zip' % (app.config['RESOURCES'], id)
+    return send_file(path)
 
 @mod.route('/')
 def index():

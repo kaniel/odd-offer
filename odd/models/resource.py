@@ -8,7 +8,7 @@ from sqlalchemy.orm import relation, backref
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import INT, VARCHAR, TIMESTAMP, TEXT
 
-from flask import json
+from flask import json, url_for
 
 from odd import app
 from odd.data.db import Model
@@ -40,7 +40,7 @@ class Resource(Model):
         return json.loads(self.file_list)
 
     def zip_url(self):
-        return '/resources/%d.zip' % self.id
+        return url_for('general.zip', id=self.id)
 
     def file_url(self, file):
         return '/resources/%d/%s' % (self.id, file)

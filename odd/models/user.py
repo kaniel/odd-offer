@@ -41,7 +41,7 @@ class User(Model, UserMixin):
         return md5(self.email.lower()).hexdigest() 
 
     def photo_url(self,size):
-        return '/photos/%d-%d.jpg' % (self.id, size)
+        return url_for('general.photo', id=self.id, size=size)
 
     def tag_is_followed(self, tag):
         tags = [tf.tag for tf in self.tag_follows]
