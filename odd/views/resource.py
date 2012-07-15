@@ -90,7 +90,7 @@ def new():
     
     title = form.title.data
     desc = form.desc.data
-    file_list = json.dumps([{'name':f.filename} for f in files])
+    file_list = [{'name':f.filename} for f in files]
     tags = clean_tags(form.tags.data.split(','))
 
     resource = Resource(current_user.id, title, desc, file_list, tags)

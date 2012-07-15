@@ -54,7 +54,7 @@
 
 {% macro download_box(r) %}
 <ul class="span3">
-    {% for f in r.files() %}
+    {% for f in r.file_list %}
     <li class="small">{{ f.name }}</li>
     {% endfor %}
 </ul>

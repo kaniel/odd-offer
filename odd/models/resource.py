@@ -4,14 +4,22 @@ from os import listdir
 from os.path import join
 from datetime import datetime
 
+from sqlalchemy import *
 from sqlalchemy.orm import relation, backref
-from sqlalchemy.schema import Column, ForeignKey
-from sqlalchemy.types import INT, VARCHAR, TIMESTAMP, TEXT
 
 from flask import json, url_for
 
 from odd import app
 from odd.data.db import Model
+
+class JSON(TypeDecorator):
+    impl = String
+    
+    def process_bind_param(self, value, dialect):
+        return json.dumps(value)
+
+    def process_result_value(self, value, dialect):
+        return json.loads(value)
 
 class Resource(Model):
     __tablename__ = 'resources'
@@ -20,7 +28,7 @@ class Resource(Model):
     user_id = Column('user_id', INT, ForeignKey('users.id'), nullable=False)
     title = Column('title', VARCHAR(128), nullable=False)
     desc = Column('description', TEXT, nullable=False)
-    file_list = Column('file_list', VARCHAR(512), nullable=False)
+    file_list = Column('file_list', JSON, nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False)
     download_count = Column('download_count', INT, nullable=False)
     
@@ -35,9 +43,6 @@ class Resource(Model):
         self.tags = [Resource_Tag(self.id, tag) for tag in tags]
         self.create_time = datetime.now()
         self.download_count = 0
-
-    def files(self):
-        return json.loads(self.file_list)
 
     def zip_url(self):
         return url_for('general.zip', id=self.id)

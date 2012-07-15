@@ -17,7 +17,6 @@ mod = Blueprint('general', __name__)
 @mod.route('/photos/<int:id>-<int:size>.jpg')
 def photo(id, size):
     path = '%s/%d-%d.jpg' % (app.config['PHOTOS'], id, size)
-    print path
     if not isfile(path):
         return app.send_static_file('img/user.jpg')
     return send_file(path)
