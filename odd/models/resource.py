@@ -47,8 +47,8 @@ class Resource(Model):
     def zip_url(self):
         return url_for('general.zip', id=self.id)
 
-    def file_url(self, file):
-        return '/resources/%d/%s' % (self.id, file)
+    def file_url(self, name):
+        return url_for('general.file', id=self.id, name=name)
         
     def __repr__(self):
         return '<Resource %r>' % self.title

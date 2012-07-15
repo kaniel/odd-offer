@@ -33,6 +33,11 @@ def zip(id):
     path = '%s/%d.zip' % (app.config['RESOURCES'], id)
     return send_file(path)
 
+@mod.route('/resources/<int:id>/<name>')
+def file(id, name):
+    path = '%s/%d/%s' % (app.config['RESOURCES'], id, name)
+    return send_file(path, as_attachment=True)
+
 @mod.route('/')
 def index():
     '''
