@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from os.path import abspath
+from os.path import dirname,abspath
 
 #config
 DEBUG = True
 SEND_FILE_MAX_AGE_DEFAULT = 1
-PRODUCTION_CONFIG = abspath('.') + '/../website_config.py'
+PRODUCTION_CONFIG = dirname(abspath(__file__)) + '/../website_config.py'
 
 #upload
 PHOTOS = abspath('.') + '/../photos'
