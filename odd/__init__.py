@@ -67,6 +67,10 @@ def not_found(error):
 def too_large(error):
     return render_template('413.html'), 413
 
+@app.errorhandler(500)
+def catch_error(error):
+    return render_template('500.html'), 500
+
 @app.teardown_request
 def close_db_session(exception):
     db_session.remove()
