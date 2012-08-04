@@ -2,15 +2,17 @@
 
 from os.path import dirname,abspath
 
+CUR_DIR = dirname(abspath(__file__))
+
 #config
 DEBUG = True
 SEND_FILE_MAX_AGE_DEFAULT = 1
-PRODUCTION_CONFIG = dirname(abspath(__file__)) + '/../website_config.py'
+PRODUCTION_CONFIG = CUR_DIR + '/../website_config.py'
 
 #upload
-PHOTOS = abspath('.') + '/../photos'
-TAG_PHOTOS = abspath('.') + '/../tag_photos'
-RESOURCES = abspath('.') + '/../resources'
+PHOTOS = CUR_DIR + '/../photos'
+TAG_PHOTOS = CUR_DIR + '/../tag_photos'
+RESOURCES = CUR_DIR + '/../resources'
 
 #img
 ALLOWED_IMGS = ['jpg', 'jpeg', 'png']
@@ -30,7 +32,7 @@ DATABASE_CONNECT_OPTIONS = {
         }
 
 #log
-ERROR_LOG = '../flask.error.log'
+ERROR_LOG = CUR_DIR + '/../logs/flask.error.log'
 ERROR_LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
 
 MAIL_HOST = '127.0.0.1'
