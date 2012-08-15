@@ -15,35 +15,37 @@ class Answer(Model):
     user_id = Column('user_id', INT, ForeignKey('users.id'), nullable=False)
     question_id = Column('question_id', INT, ForeignKey('questions.id'), nullable=False)
     content = Column('content', TEXT, nullable=False)
-    up = Column('up', INT, nullable=False)
+    score = Column('score', INT, nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False)
     
     user = relation("User")
     comments = relation("Comment", backref=backref('answer'))
 
-    def __init__(self, user_id, question_id, content, up=0):
+    def __init__(self, user_id, question_id, content, score=0):
         self.user_id = user_id
         self.question_id = question_id
         self.content = content
-        self.up = up
+        self.score = score
         self.create_time = datetime.now()
 
     def __repr__(self):
         return '<Answer %d,%d>' % (self.user_id, self.question_id)
 
-class Answer_Up(Model):
-    __tablename__ = 'answer_ups'
+class Answer_Marks(Model):
+    __tablename__ = 'answer_marks'
 
     id = Column('id', INT, primary_key=True)
     user_id = Column('user_id', INT,  nullable=False)
     answer_id = Column('answer_id', INT,  nullable=False)
+    answer_type = Column('answer_type', INT, nullable=False)
 
-    def __init__(self, user_id, answer_id):
+    def __init__(self, user_id, answer_id, answer_type):
         self.user_id = user_id
         self.answer_id = answer_id
+        self.answer_type = answer_type
 
     def __repr__(self):
-        return '<Answer_Up %d,%d>' % (self.user_id, self.answer_id)
+        return '<Answer_Marks %d,%d>' % (self.user_id, self.answer_id)
 
 
 

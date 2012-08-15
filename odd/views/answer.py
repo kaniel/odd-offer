@@ -43,27 +43,47 @@ def new():
 @mod.route('/up', methods=['POST'])
 @login_required
 def up():
+    print "answer up"
     form = request.form
     answer_id = form.get('answer_id')
+    print "as:", answer_id
     if not answer_id:
         return jsonify(errno='FAIL')
 
-    answer_up = Answer_Up(current_user.id, answer_id)
-    ret = new_answer_up(answer_up)
+    answer_up = Answer_Marks(current_user.id, answer_id, 0)
+    ret = new_answer_mark(answer_up)
+    if ret != ANSWER_UP_ADD_OK:
+        return jsonify(errno='FAIL')
+
+    return jsonify(errno='SUCCESS')
+
+@mod.route('/down', methods=['POST'])
+@login_required
+def down():
+    print "answer down---------------"
+    form = request.form
+    answer_id = form.get('answer_id')
+    print "as:", answer_id
+    if not answer_id:
+        return jsonify(errno='FAIL')
+
+    answer_down = Answer_Marks(current_user.id, answer_id, 1)
+    ret = new_answer_mark(answer_down)
     if ret != ANSWER_UP_ADD_OK:
         return jsonify(errno='FAIL')
 
     return jsonify(errno='SUCCESS')
 
 
-
 @mod.route('/comment', methods=['POST'])
 @login_required
 def comment():
+    print "comment------------------"
     form = request.form
     answer_id = form.get('answer_id')
     comment_id = form.get('comment_id')
     content = form.get('content')
+    print answer_id, ":", comment_id, ":", content
     if not answer_id or not comment_id or not content:
         return jsonify(errno='FAIL')
 

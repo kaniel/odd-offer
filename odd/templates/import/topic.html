@@ -56,10 +56,13 @@
 {% macro normal_answer(a, current_user) %}
 <section id="answer-{{ a.id }}" class="answer">
     <div class="vote" data-id="{{ a.id }}">
-        <span class="score">{{ a.up }}</span>
+        <span class="up">{{ a.score }}</span>
         <button class="up">顶</button>
     </div>
-
+    <div class="vote1" data-id="{{ a.id }}">
+        <span class="up">{{ a.score }}</span>
+        <button class="down">踩</button>
+    </div>
     <pre>{{ a.content }}</pre>
     
     <blockquote class="simple-quote">

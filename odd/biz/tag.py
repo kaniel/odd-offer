@@ -31,7 +31,7 @@ def new_tag(tag):
         return TAG_ADD_OK
     except:
         db_session.rollback()
-        return TAG_DUPLICATE
+        return TAG_DUPLICATE    
 
 def new_tags(tags):
     for tag in tags:

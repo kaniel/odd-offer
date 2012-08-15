@@ -18,17 +18,19 @@ def new_answer(answer):
 
 
 
-def new_answer_up(answer_up):
-    au = db_session.query(Answer_Up).filter_by(answer_id=answer_up.answer_id, 
-            user_id=answer_up.user_id).first()
+def new_answer_mark(answer_mark):
+    au = db_session.query(Answer_Marks).filter_by(answer_id=answer_mark.answer_id, 
+            user_id=answer_mark.user_id).first()
     if au:
         return ANSWER_UP_DUPLICATE
 
-    db_session.add(answer_up)
+    db_session.add(answer_mark)
 
-    anwser = db_session.query(Answer).get(answer_up.answer_id)
-    anwser.up += 1
-
+    answer = db_session.query(Answer).get(answer_mark.answer_id)
+    if answer_mark.answer_type == 0 :
+        answer.score += 1
+    elif answer_mark.answer_type == 1 :
+        answer.score -= 1
     db_session.commit()
     
     return ANSWER_UP_ADD_OK
