@@ -43,10 +43,8 @@ def new():
 @mod.route('/up', methods=['POST'])
 @login_required
 def up():
-    print "answer up"
     form = request.form
     answer_id = form.get('answer_id')
-    print "as:", answer_id
     if not answer_id:
         return jsonify(errno='FAIL')
 
@@ -57,13 +55,12 @@ def up():
 
     return jsonify(errno='SUCCESS')
 
+#踩一下down 方法 post 参数：answer_id
 @mod.route('/down', methods=['POST'])
 @login_required
 def down():
-    print "answer down---------------"
     form = request.form
     answer_id = form.get('answer_id')
-    print "as:", answer_id
     if not answer_id:
         return jsonify(errno='FAIL')
 
@@ -78,12 +75,10 @@ def down():
 @mod.route('/comment', methods=['POST'])
 @login_required
 def comment():
-    print "comment------------------"
     form = request.form
     answer_id = form.get('answer_id')
     comment_id = form.get('comment_id')
     content = form.get('content')
-    print answer_id, ":", comment_id, ":", content
     if not answer_id or not comment_id or not content:
         return jsonify(errno='FAIL')
 
