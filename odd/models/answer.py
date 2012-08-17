@@ -16,16 +16,20 @@ class Answer(Model):
     question_id = Column('question_id', INT, ForeignKey('questions.id'), nullable=False)
     content = Column('content', TEXT, nullable=False)
     score = Column('score', INT, nullable=False)
+    up = Column('up', INT, nullable=False)
+    down= Column('down', INT, nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False)
     
     user = relation("User")
     comments = relation("Comment", backref=backref('answer'))
 
-    def __init__(self, user_id, question_id, content, score=0):
+    def __init__(self, user_id, question_id, content, score=0, up=0, down=0):
         self.user_id = user_id
         self.question_id = question_id
         self.content = content
         self.score = score
+        self.up = up
+        self.down = down
         self.create_time = datetime.now()
 
     def __repr__(self):

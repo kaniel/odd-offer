@@ -22,18 +22,24 @@ def new_answer_mark(answer_mark):
     au = db_session.query(Answer_Marks).filter_by(answer_id=answer_mark.answer_id, 
             user_id=answer_mark.user_id).first()
     if au:
-        return ANSWER_UP_DUPLICATE
+        if answer_mark.answer_type == 0 :
+            return ANSWER_UP_DUPLICATE
+        if answer_mark.answer_type == 1 :
+            return ANSWER_DOWN_DUPLICATE
 
     db_session.add(answer_mark)
 
     answer = db_session.query(Answer).get(answer_mark.answer_id)
     if answer_mark.answer_type == 0 :
         answer.score += 1
+        answer.up +=1
+        db_session.commit()
+        return ANSWER_UP_ADD_OK
     elif answer_mark.answer_type == 1 :
         answer.score -= 1
-    db_session.commit()
-    
-    return ANSWER_UP_ADD_OK
+        answer.down += 1
+        db_session.commit()
+        return ANSWER_DOWN_ADD_OK
 
 
 def new_comment(comment):

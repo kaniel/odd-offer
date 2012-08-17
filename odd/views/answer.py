@@ -55,10 +55,12 @@ def up():
 
     return jsonify(errno='SUCCESS')
 
-#踩一下down 方法 post 参数：answer_id
 @mod.route('/down', methods=['POST'])
 @login_required
 def down():
+    '''
+    踩一下down 方法 post 参数：answer_id 
+    '''
     form = request.form
     answer_id = form.get('answer_id')
     if not answer_id:
@@ -66,7 +68,8 @@ def down():
 
     answer_down = Answer_Marks(current_user.id, answer_id, 1)
     ret = new_answer_mark(answer_down)
-    if ret != ANSWER_UP_ADD_OK:
+    #检测新踩标记是否成功
+    if ret != ANSWER_DOWN_ADD_OK:
         return jsonify(errno='FAIL')
 
     return jsonify(errno='SUCCESS')

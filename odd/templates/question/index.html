@@ -56,13 +56,13 @@ $(function(){
             error: fail,
             success: function(data){
                 if(data.errno != 'SUCCESS') {
-                    alert('您的up操作没有成功！');
+                    alert('您的顶操作没有成功！');
                     return;
                 }
                 var score = that.siblings('.score');
                 score.text(parseInt(score.text()) + 1);
                 alert(socre);
-                alert('您的up操作成功！');
+                alert('您的顶操作成功！');
             }
         })
     })
@@ -77,10 +77,10 @@ $(function(){
             error: fail,
             success: function(data){
                 if(data.errno != 'SUCCESS') {
-                    alert('您的down操作没有成功！');
+                    alert('您的踩操作没有成功！');
                     return;
                 }
-                alert('您的down操作成功！')
+                alert('您的踩操作成功！')
                 var score = that.siblings('.score');
                 score.text(parseInt(score.text()) - 1);
             }
