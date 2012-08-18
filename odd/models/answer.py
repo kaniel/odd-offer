@@ -35,21 +35,21 @@ class Answer(Model):
     def __repr__(self):
         return '<Answer %d,%d>' % (self.user_id, self.question_id)
 
-class Answer_Marks(Model):
-    __tablename__ = 'answer_marks'
+class Answer_Mark(Model):
+    __tablename__ = 'answer_mark'
 
     id = Column('id', INT, primary_key=True)
     user_id = Column('user_id', INT,  nullable=False)
     answer_id = Column('answer_id', INT,  nullable=False)
-    answer_type = Column('answer_type', INT, nullable=False)
+    mark_type = Column('mark_type', INT, nullable=False)
 
-    def __init__(self, user_id, answer_id, answer_type):
+    def __init__(self, user_id, answer_id, mark_type):
         self.user_id = user_id
         self.answer_id = answer_id
-        self.answer_type = answer_type
+        self.mark_type = mark_type
 
     def __repr__(self):
-        return '<Answer_Marks %d,%d>' % (self.user_id, self.answer_id)
+        return '<Answer_Mark %d,%d>' % (self.user_id, self.answer_id)
 
 
 
