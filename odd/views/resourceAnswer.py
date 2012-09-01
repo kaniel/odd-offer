@@ -44,37 +44,6 @@ def new():
 
     return jsonify(errno='SUCCESS')
 
-@mod.route('/good', methods=['POST'])
-@login_required
-def good():
-    form = request.form
-    answer_id = form.get('answer_id')
-    if not answer_id:
-        return jsonify(errno='FAIL')
-
-    answer_good = Resource_Answer_Mark(current_user.id, answer_id, 'good')
-    ret = new_answer_mark(answer_good)
-    if ret != ANSWER_GOOD_ADD_OK:
-        return jsonify(errno='FAIL')
-
-    return jsonify(errno='SUCCESS')
-
-@mod.route('/bad', methods=['POST'])
-@login_required
-def bad():
-    form = request.form
-    answer_id = form.get('answer_id')
-    if not answer_id:
-        return jsonify(errno='FAIL')
-
-    answer_bad = Resource_Answer_Mark(current_user.id, answer_id, 'bad')
-    ret = new_answer_mark(answer_bad)
-    if ret != ANSWER_BAD_ADD_OK:
-        return jsonify(errno='FAIL')
-
-    return jsonify(errno='SUCCESS')
-
-
 @mod.route('/comment', methods=['POST'])
 @login_required
 def comment():

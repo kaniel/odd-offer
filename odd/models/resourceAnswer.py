@@ -17,42 +17,20 @@ class Resource_Answer(Model):
     user_id = Column('user_id', INT, ForeignKey('users.id'), nullable=False)
     resource_id = Column('resource_id', INT, ForeignKey('resources.id'), nullable=False)
     content = Column('content', TEXT, nullable=False)
-    score = Column('score', INT, nullable=False)
-    good = Column('good', INT, nullable=False)
-    bad= Column('bad', INT, nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False) 
     
     user = relation("User")
     comments = relation("Resource_Comment", backref=backref('resourceanswer'))
 
-    def __init__(self, user_id, resource_id, content, score=0, good=0, bad=0):
+    def __init__(self, user_id, resource_id, content):
         self.user_id = user_id
         self.resource_id = resource_id
         self.content = content
-        self.score = score
-        self.good = good
-        self.bad = bad
         self.create_time = datetime.now()
     
     def __repr__(self):
         return '<Resource_Answer %d,%d>' % (self.user_id, self.resource_id)
     
-class Resource_Answer_Mark(Model):
-    __tablename__ = 'resource_answer_mark'
-
-    id = Column('id', INT, primary_key=True)
-    user_id = Column('user_id', INT,  nullable=False)
-    answer_id = Column('answer_id', INT,  nullable=False)
-    mark_type = Column('mark_type', Enum('good','bad'), nullable=False)
-    #mark_type = Column('mark_type', INT, nullable=False)
-
-    def __init__(self, user_id, answer_id, mark_type):
-        self.user_id = user_id
-        self.answer_id = answer_id
-        self.mark_type = mark_type
-
-    def __repr__(self):
-        return '<Resource_Answer_Mark %d,%d>' % (self.user_id, self.answer_id)
     
 class Resource_Comment(Model):
     __tablename__ = 'resource_comments'

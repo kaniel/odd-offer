@@ -31,10 +31,14 @@ class Resource(Model):
     file_list = Column('file_list', JSON, nullable=False)
     create_time = Column('create_time', TIMESTAMP, nullable=False)
     download_count = Column('download_count', INT, nullable=False)
-    
+    answer_count = Column('answer_count', INT, nullable=False)
+    score = Column('score', INT, nullable=False)
+    good = Column('good', INT, nullable=False)
+    bad= Column('bad', INT, nullable=False)
+
     user = relation('User')
     tags = relation("Resource_Tag", backref=backref('resource'), order_by='Resource_Tag.id')
-    resanswers = relation('Resource_Answer', order_by='desc(Resource_Answer.score)', backref=backref('resource'))
+    resanswers = relation('Resource_Answer', backref=backref('resource'))
 
     def __init__(self, user_id, title, desc, file_list, tags):
         self.user_id = user_id
@@ -44,6 +48,7 @@ class Resource(Model):
         self.tags = [Resource_Tag(self.id, tag) for tag in tags]
         self.create_time = datetime.now()
         self.download_count = 0
+        self.answer_count = 0
 
     def zip_url(self):
         return url_for('general.zip', id=self.id)
@@ -53,6 +58,23 @@ class Resource(Model):
         
     def __repr__(self):
         return '<Resource %r>' % self.title
+    
+class Resource_Mark(Model):
+    __tablename__ = 'resource_mark'
+
+    id = Column('id', INT, primary_key=True)
+    user_id = Column('user_id', INT,  nullable=False)
+    resource_id = Column('resource_id', INT,  nullable=False)
+    mark_type = Column('mark_type', Enum('good','bad'), nullable=False)
+#    mark_type = Column('mark_type', INT, nullable=False)
+
+    def __init__(self, user_id, resource_id, mark_type):
+        self.user_id = user_id
+        self.resource_id = resource_id
+        self.mark_type = mark_type
+
+    def __repr__(self):
+        return '<Resource_Answer_Mark %d,%d>' % (self.user_id, self.answer_id)
 
 class Resource_Tag(Model):
     __tablename__ = 'resource_tags'

@@ -18,8 +18,42 @@ def index(id):
     resource = get_resource_by_id(id)
     if not resource:
         abort(404)
+        
+    answer_id = request.args.get('answer_id', -1, type=int)
+    comment_id = request.args.get('comment_id', -1, type=int)
 
-    return render_template('resource/index.html', resource=resource)
+    return render_template('resource/index.html', resource=resource, answer_id=answer_id, comment_id=comment_id)
+
+@mod.route('/good', methods=['POST'])
+@login_required
+def good():
+    form = request.form
+    resource_id = form.get('resource_id')
+    if not resource_id:
+        return jsonify(errno='FAIL')
+
+    resource_good = Resource_Mark(current_user.id, resource_id, 'good')
+    ret = new_resource_mark(resource_good)
+    if ret != ANSWER_GOOD_ADD_OK:
+        return jsonify(errno='FAIL')
+
+    return jsonify(errno='SUCCESS')
+
+@mod.route('/bad', methods=['POST'])
+@login_required
+def bad():
+    form = request.form
+    resource_id = form.get('resource_id')
+    if not resource_id:
+        return jsonify(errno='FAIL')
+
+    resource_bad = Resource_Mark(current_user.id, resource_id, 'bad')
+    ret = new_resource_mark(resource_bad)
+    if ret != ANSWER_BAD_ADD_OK:
+        return jsonify(errno='FAIL')
+
+    return jsonify(errno='SUCCESS')
+
 
 @mod.route('/<id>/download', methods=['POST'])
 @login_required

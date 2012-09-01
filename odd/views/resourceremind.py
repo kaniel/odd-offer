@@ -14,7 +14,7 @@ from odd.utils.error import *
 
 from odd.biz.resourceremind import *
 
-mod = Blueprint('remind', __name__, url_prefix='/remind')
+mod = Blueprint('resremind', __name__, url_prefix='/resremind')
 
 @mod.route('/', methods=['GET'])
 @login_required

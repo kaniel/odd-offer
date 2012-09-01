@@ -9,6 +9,29 @@ from odd.biz.tag import new_tags
 
 from odd.utils.error import *
 
+def new_resource_mark(resource_mark):
+    au = db_session.query(Resource_Mark).filter_by(resource_id=resource_mark.resource_id, 
+                                                   user_id=resource_mark.user_id).first()
+    if au:
+        if resource_mark.mark_type == 'good' :
+            return ANSWER_GOOD_DUPLICATE
+        if resource_mark.mark_type == 'bad' :
+            return ANSWER_BAD_DUPLICATE
+
+    db_session.add(resource_mark)
+
+    resorce = db_session.query(Resource).get(resource_mark.resource_id)
+    if resource_mark.mark_type == 'good' :
+        resorce.score += 1
+        resorce.good += 1
+        db_session.commit()
+        return ANSWER_GOOD_ADD_OK
+    elif resource_mark.mark_type == 'bad' :
+        resorce.score -= 1
+        resorce.bad += 1
+        db_session.commit()
+        return ANSWER_BAD_ADD_OK
+
 def get_resource_by_id(id):
     resource = db_session.query(Resource).get(id)
     return resource

@@ -60,7 +60,7 @@
             }
 
             $.ajax({
-                url: "{{ url_for('remind.index') }}",
+                url: "{{ url_for('resremind.index') }}",
                 success: function(data){
                     show_reminds(data);
                     //setTimeout(load_reminds, 10000);

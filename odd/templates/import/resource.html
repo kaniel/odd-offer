@@ -54,14 +54,6 @@
 
 {% macro normal_answer(a, current_user) %}
 <section id="answer-{{ a.id }}" class="answer">
-    <div class="vote3" data-id="{{ a.id }}">
-        <span class="up">{{ a.score }}</span>
-        <button class="good">好</button>
-    </div>
-    <div class="vote4" data-id="{{ a.id }}">
-        <span class="up">{{ a.score }}</span>
-        <button class="bad">差</button>
-    </div>
     <pre>{{ a.content }}</pre>
     
     <blockquote class="simple-quote">
@@ -125,6 +117,16 @@
 {% endmacro %}
 
 {% macro download_box(r) %}
+<ul class="span">
+	<div class="vote1" data-id="{{ r.id }}">
+        <span class="score">{{ r.score }}</span>
+        <button class="good">好</button>
+    </div>
+    <div class="vote2" data-id="{{ r.id }}">
+        <span class="score">{{ r.score }}</span>
+        <button class="bad">差</button>
+    </div>
+</ul>
 <ul class="span3">
     {% for f in r.file_list %}
     <li class="small">{{ f.name }}</li>
@@ -149,6 +151,47 @@
             return false;
         });
     });
+    $('.good').click(function(){
+        var that = $(this)
+        var aid = $(this).parent('.vote1').attr('data-id')
+        $.ajax({
+            url:"{{ url_for('resource.good') }}",
+            type: "POST",
+            data: {"resource_id":aid},
+            error: fail,
+            success: function(data){
+                if(data.errno != 'SUCCESS') {
+                    alert('您的好评操作没有成功！');
+                    return;
+                }
+                var score = that.siblings('.score');
+                score.text(parseInt(score.text()) + 1);
+                alert(socre);
+                alert('您的好评操作成功！');
+            }
+        })
+    })
+    
+    $('.bad').click(function(){
+        var that = $(this)
+        var aid = $(this).parent('.vote2').attr('data-id')
+        $.ajax({
+            url:"{{ url_for('resource.bad') }}",
+            type: "POST",
+            data: {"resource_id":aid},
+            error: fail,
+            success: function(data){
+                if(data.errno != 'SUCCESS') {
+                    alert('您的差评操作没有成功！');
+                    return;
+                }
+                var score = that.siblings('.score');
+                score.text(parseInt(score.text()) + 1);
+                alert(socre);
+                alert('您的差评操作成功！');
+            }
+        })
+    })
 </script> 
 {% endmacro %}
 

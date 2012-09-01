@@ -12,7 +12,7 @@
     下载量：{{ resource.download_count }}
     
     <hr>
-    
+
     {{ download_box(resource) }}
     
 	<hr>
@@ -51,47 +51,6 @@ $(function(){
             success: success
         })
         return false
-    })
-    
-    $('.answer .good').click(function(){
-        var that = $(this)
-        var aid = $(this).parent('.vote3').attr('data-id')
-        $.ajax({
-            url:"{{ url_for('resourecanswer.good') }}",
-            type: "POST",
-            data: {"answer_id":aid},
-            error: fail,
-            success: function(data){
-                if(data.errno != 'SUCCESS') {
-                    alert('您的好评操作没有成功！');
-                    return;
-                }
-                var score = that.siblings('.score');
-                score.text(parseInt(score.text()) + 1);
-                alert(socre);
-                alert('您的好评操作成功！');
-            }
-        })
-    })
-    
-    $('.answer .bad').click(function(){
-        var that = $(this)
-        var aid = $(this).parent('.vote4').attr('data-id')
-        $.ajax({
-            url:"{{ url_for('resourecanswer.bad') }}",
-            type: "POST",
-            data: {"answer_id":aid},
-            error: fail,
-            success: function(data){
-                if(data.errno != 'SUCCESS') {
-                    alert('您的差评操作没有成功！');
-                    return;
-                }
-                alert('您的差评操作成功！')
-                var score = that.siblings('.score');
-                score.text(parseInt(score.text()) - 1);
-            }
-        })
     })
 
     $('.comment .reply').click(function(){
