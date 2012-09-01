@@ -21,6 +21,78 @@
 
 {% endmacro %}
 
+{% macro normal_comment(a, current_user) %}
+<section id="comments-{{ a.id }}" class="comments">
+{% for c in a.comments %}
+<div id="comment-{{ c.id }}" class="comment clearfix">
+    <img class="size-20 pull-left" src="{{ c.user.photo_url(20) }}" />
+    <div class="pull-left">
+        <p>
+        <a class="nickname" href="{{ url_for('user.index', nickname=c.user.nickname) }}">{{ c.user.nickname }}</a>
+        ：<code>{{ c.content }}</code>
+        </p>
+        <p>
+        <small>{{ c.create_time }}</small>
+        <a class="reply" href="javascript:;">回复</a>
+        </p>
+    </div>
+</div>
+<hr>
+{% endfor %}
+
+<div class="clearfix">
+    <img class="size-20 pull-left" src="{{ current_user.photo_url(20) }}" />
+    <form class="comment-form form-inline">
+        <input name="answer_id" type="hidden" value="{{ a.id }}">
+        <input name="comment_id" type="hidden" value="-1">
+        <input name="content" type="text">
+        <input type="submit" value="评论">
+    </form>
+</div>
+</section>
+{% endmacro %}
+
+{% macro normal_answer(a, current_user) %}
+<section id="answer-{{ a.id }}" class="answer">
+    <div class="vote3" data-id="{{ a.id }}">
+        <span class="up">{{ a.score }}</span>
+        <button class="good">好</button>
+    </div>
+    <div class="vote4" data-id="{{ a.id }}">
+        <span class="up">{{ a.score }}</span>
+        <button class="bad">差</button>
+    </div>
+    <pre>{{ a.content }}</pre>
+    
+    <blockquote class="simple-quote">
+        <small>
+            <a href="{{ url_for('user.index', nickname=a.user.nickname) }}">
+                <img class="size-20" src="{{ a.user.photo_url(20) }}" />
+                {{ a.user.nickname }}
+            </a> 
+        </small>
+    </blockquote>
+    
+    <footer>
+        <a href="javascript:;" data-toggle="collapse" data-target="#comments-collapse-{{ a.id }}">
+        {% set count = a.comments|length %}
+        {% if count %}
+            {{ count }}条评论
+        {% else %}
+            评论
+        {% endif %}
+        </a>
+    
+        <span class="pull-right small">{{ a.create_time }}</span>
+    
+        <div id="comments-collapse-{{ a.id }}" class="collapse" style="margin-top:5px;height: 0px;">
+            <hr>
+            {{ normal_comment(a, current_user) }}
+        </div>
+    </footer>
+</section>
+{% endmacro %}
+
 
 {% macro normal_resource(r, current_user) %}
 <section id="resource-{{ r.id }}" class="resource">
@@ -79,3 +151,5 @@
     });
 </script> 
 {% endmacro %}
+
+

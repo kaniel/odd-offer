@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% from 'import/resource.html' import normal_resource, download_box %}
+{% from 'import/resource.html' import normal_resource, download_box, normal_comment, normal_answer %}
 
 <section class="span8">
     {{ normal_resource(resource, current_user) }}
@@ -14,8 +14,139 @@
     <hr>
     
     {{ download_box(resource) }}
+    
+	<hr>
+	
+	<p>{{ resource.answer_count }}个答案</p>
+	<hr>
+	{% for a in resource.resanswers %}
+	{{ normal_answer(a, current_user) }}
+	<hr>
+	{% endfor %}
+    <form class="resanswer-form well" action="" method="post">
+    <input name="resource_id" type="hidden" value="{{ resource.id }}"/>
+    <textarea class="span6" name="content" rows="5"></textarea>
+    <input class="btn btn-primary" type="submit" value="回答"/>
+	</form>
 </section>
+<script>
+$(function(){
+    $(".resanswer-form").submit(function(){
+        question_id = $("input[name=resource_id]", this).val() 
+        if(!question_id){
+            alert("问题ID不能为空")
+            return false
+        }
+        content = $("textarea[name=content]", this).val()
+        if(!content){
+            alert("内容不能为空")
+            return false
+        }
 
+        $.ajax({
+            url:"{{ url_for('resourecanswer.new') }}",
+            type: "POST",
+            data: $(this).serialize(),
+            error: fail,
+            success: success
+        })
+        return false
+    })
+    
+    $('.answer .good').click(function(){
+        var that = $(this)
+        var aid = $(this).parent('.vote3').attr('data-id')
+        $.ajax({
+            url:"{{ url_for('resourecanswer.good') }}",
+            type: "POST",
+            data: {"answer_id":aid},
+            error: fail,
+            success: function(data){
+                if(data.errno != 'SUCCESS') {
+                    alert('您的好评操作没有成功！');
+                    return;
+                }
+                var score = that.siblings('.score');
+                score.text(parseInt(score.text()) + 1);
+                alert(socre);
+                alert('您的好评操作成功！');
+            }
+        })
+    })
+    
+    $('.answer .bad').click(function(){
+        var that = $(this)
+        var aid = $(this).parent('.vote4').attr('data-id')
+        $.ajax({
+            url:"{{ url_for('resourecanswer.bad') }}",
+            type: "POST",
+            data: {"answer_id":aid},
+            error: fail,
+            success: function(data){
+                if(data.errno != 'SUCCESS') {
+                    alert('您的差评操作没有成功！');
+                    return;
+                }
+                alert('您的差评操作成功！')
+                var score = that.siblings('.score');
+                score.text(parseInt(score.text()) - 1);
+            }
+        })
+    })
+
+    $('.comment .reply').click(function(){
+        comment = $(this).parents('.comment')
+        cid = comment.attr('id').split('-')[1]
+        nickname = comment.find('.nickname').text()
+        form = comment.parent('.comments').find('.comment-form')
+        $('input[name=comment_id]',form).val(cid)
+        $('input[name=content]',form).focus().val('回复'+nickname+'：')
+    })
+
+    $('.comments .comment-form').submit(function(){
+        answer_id = $("input[name=answer_id]", this).val() 
+        if(!answer_id){
+            alert("答案ID不能为空")
+            return false
+        }
+        comment_id = $("input[name=comment_id]", this).val() 
+        if(!comment_id){
+            alert("评论ID不能为空")
+            return false
+        }
+        content = $("input[name=content]", this).val()
+        if(!content){
+            alert("内容不能为空")
+            return false
+        }
+        $.ajax({
+            url:"{{ url_for('resourecanswer.comment') }}",
+            type: "POST",
+            data: $(this).serialize(),
+            error: fail,
+            success: success
+            })
+
+        return false
+    })
+
+    function center(id){
+        $('body').animate({scrollTop: $(id).offset().top}, 0);
+    }
+
+    if({{ answer_id }} > 0){
+        if({{ comment_id }} > 0){
+            csid = "#comments-collapse-{{ answer_id }}" 
+            $(csid).collapse('show')
+            cid = "#comment-{{ comment_id }}";
+            center(cid)
+        }else{
+            aid = "#answer-{{ answer_id }}";
+            center(aid)
+        }
+    }
+})
+</script>
 <div class="span4">
 
 <section class="side-box clearfix">

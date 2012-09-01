@@ -34,6 +34,7 @@ class Resource(Model):
     
     user = relation('User')
     tags = relation("Resource_Tag", backref=backref('resource'), order_by='Resource_Tag.id')
+    resanswers = relation('Resource_Answer', order_by='desc(Resource_Answer.score)', backref=backref('resource'))
 
     def __init__(self, user_id, title, desc, file_list, tags):
         self.user_id = user_id
