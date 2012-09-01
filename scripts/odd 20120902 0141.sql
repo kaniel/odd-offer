@@ -129,7 +129,7 @@ CREATE TABLE `answers` (
   `down` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `answers`
@@ -216,7 +216,9 @@ INSERT INTO `answers` (`id`,`question_id`,`user_id`,`content`,`create_time`,`sco
  (77,53,41,'fsdfsdfsdfsdfsafs','2012-08-30 21:14:03',-1,0,1),
  (78,68,41,'fffffffffffffffffffffffff','2012-08-30 21:39:10',0,0,0),
  (79,67,41,'ssssssssss','2012-08-30 21:39:54',0,0,0),
- (80,66,41,'sdfasfasfasf','2012-08-30 21:52:51',0,0,0);
+ (80,66,41,'sdfasfasfasf','2012-08-30 21:52:51',0,0,0),
+ (81,69,41,'的发','2012-09-02 01:40:56',0,0,0),
+ (82,69,41,'撒发撒旦发','2012-09-02 01:41:02',0,0,0);
 /*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 
 
@@ -739,7 +741,7 @@ INSERT INTO `questions` (`id`,`user_id`,`title`,`content`,`create_time`,`answer_
  (66,11,'出国购汇','根据最近汇率的走势，什么时候购汇比较有利呢？大家都是电汇还是带汇票过去的呀？','2012-06-24 18:46:58',3),
  (67,1,'test','test','2012-07-06 20:54:41',3),
  (68,1,'test','test','2012-07-11 21:13:29',2),
- (69,1,'test','test','2012-07-12 20:12:55',2);
+ (69,1,'test','test','2012-07-12 20:12:55',4);
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 
 
@@ -761,7 +763,7 @@ CREATE TABLE `reminds` (
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`user_id`,`has_read`,`create_time`)
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `reminds`
@@ -850,7 +852,9 @@ INSERT INTO `reminds` (`id`,`user_id`,`question_id`,`question_title`,`answer_id`
  (79,1,68,'test',78,'ffffffffff',-1,'',0,'2012-08-30 21:39:10'),
  (80,1,67,'test',79,'ssssssssss',-1,'',0,'2012-08-30 21:39:54'),
  (81,11,66,'出国购汇',80,'sdfasfasfa',-1,'',0,'2012-08-30 21:52:51'),
- (82,1,2,'各位童鞋，UMD马里',3,'oo',60,'fffffffff',0,'2012-09-01 10:22:52');
+ (82,1,2,'各位童鞋，UMD马里',3,'oo',60,'fffffffff',0,'2012-09-01 10:22:52'),
+ (83,1,69,'test',81,'的发',-1,'',0,'2012-09-02 01:40:56'),
+ (84,1,69,'test',82,'撒发撒旦发',-1,'',0,'2012-09-02 01:41:02');
 /*!40000 ALTER TABLE `reminds` ENABLE KEYS */;
 
 
@@ -865,36 +869,42 @@ CREATE TABLE `resource_answers` (
   `user_id` int(11) unsigned NOT NULL,
   `content` text NOT NULL,
   `create_time` datetime NOT NULL,
-  `score` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `resource_id` (`resource_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `resource_answers`
 --
 
 /*!40000 ALTER TABLE `resource_answers` DISABLE KEYS */;
-INSERT INTO `resource_answers` (`id`,`resource_id`,`user_id`,`content`,`create_time`,`score`) VALUES 
- (1,101,41,'ggggggggggg','2012-09-01 09:22:54',0),
- (2,101,41,'ggggggggggg','2012-09-01 09:22:56',0),
- (3,101,41,'ggggggggggg','2012-09-01 09:29:27',0),
- (4,100,41,'fffffffffff','2012-09-01 09:30:34',0),
- (5,100,41,' fffffffffff','2012-09-01 09:30:51',0),
- (6,100,41,' fffffffffff','2012-09-01 09:32:40',0),
- (7,100,41,' ffffffffffffff','2012-09-01 09:32:49',0),
- (8,100,41,' fffffffffffffffsdf','2012-09-01 09:35:55',0),
- (9,100,41,' fffffffffffffffsdfsdffs','2012-09-01 09:40:24',0),
- (10,100,41,' fffffffffffffffsdfsdffs','2012-09-01 09:44:00',0),
- (11,99,41,'ffffffsdfsdf','2012-09-01 09:54:02',0),
- (12,99,41,'ffffffsdfsdffff','2012-09-01 09:55:42',0),
- (13,99,41,'ffffffsdfsdffff','2012-09-01 10:11:54',0),
- (14,97,41,'发斯蒂芬斯蒂芬','2012-09-01 15:59:45',0),
- (15,97,41,'方式地方','2012-09-01 16:10:49',0),
- (16,97,41,'fsdfasdf ','2012-09-01 17:01:37',0),
- (17,95,41,'ffff','2012-09-01 17:11:54',0),
- (18,95,41,'fdfsdfs ','2012-09-01 17:13:24',0),
- (19,95,41,'方式地方反对','2012-09-01 21:11:53',0);
+INSERT INTO `resource_answers` (`id`,`resource_id`,`user_id`,`content`,`create_time`) VALUES 
+ (1,101,41,'ggggggggggg','2012-09-01 09:22:54'),
+ (2,101,41,'ggggggggggg','2012-09-01 09:22:56'),
+ (3,101,41,'ggggggggggg','2012-09-01 09:29:27'),
+ (4,100,41,'fffffffffff','2012-09-01 09:30:34'),
+ (5,100,41,' fffffffffff','2012-09-01 09:30:51'),
+ (6,100,41,' fffffffffff','2012-09-01 09:32:40'),
+ (7,100,41,' ffffffffffffff','2012-09-01 09:32:49'),
+ (8,100,41,' fffffffffffffffsdf','2012-09-01 09:35:55'),
+ (9,100,41,' fffffffffffffffsdfsdffs','2012-09-01 09:40:24'),
+ (10,100,41,' fffffffffffffffsdfsdffs','2012-09-01 09:44:00'),
+ (11,99,41,'ffffffsdfsdf','2012-09-01 09:54:02'),
+ (12,99,41,'ffffffsdfsdffff','2012-09-01 09:55:42'),
+ (13,99,41,'ffffffsdfsdffff','2012-09-01 10:11:54'),
+ (14,97,41,'发斯蒂芬斯蒂芬','2012-09-01 15:59:45'),
+ (15,97,41,'方式地方','2012-09-01 16:10:49'),
+ (16,97,41,'fsdfasdf ','2012-09-01 17:01:37'),
+ (17,95,41,'ffff','2012-09-01 17:11:54'),
+ (18,95,41,'fdfsdfs ','2012-09-01 17:13:24'),
+ (19,95,41,'方式地方反对','2012-09-01 21:11:53'),
+ (20,93,41,'大法师父','2012-09-02 01:36:22'),
+ (21,93,41,'大法师父地方撒','2012-09-02 01:36:26'),
+ (22,100,41,'生大幅啊','2012-09-02 01:36:53'),
+ (23,99,41,'速度发','2012-09-02 01:38:20'),
+ (24,99,41,'适当方式地方','2012-09-02 01:39:27'),
+ (25,99,41,'适当方式地方','2012-09-02 01:39:30'),
+ (26,99,41,'速度发','2012-09-02 01:40:37');
 /*!40000 ALTER TABLE `resource_answers` ENABLE KEYS */;
 
 
@@ -912,7 +922,7 @@ CREATE TABLE `resource_comments` (
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `resource_comments`
@@ -932,7 +942,8 @@ INSERT INTO `resource_comments` (`id`,`answer_id`,`comment_id`,`user_id`,`conten
  (11,15,10,41,'回复tttt：方法是','2012-09-01 16:18:58'),
  (12,17,-1,41,'发撒旦发生','2012-09-01 18:09:10'),
  (13,17,12,41,'回复tttt：方式地方','2012-09-01 18:09:19'),
- (14,3,-1,41,'非师范','2012-09-02 00:30:00');
+ (14,3,-1,41,'非师范','2012-09-02 00:30:00'),
+ (15,4,-1,41,'上发','2012-09-02 01:36:43');
 /*!40000 ALTER TABLE `resource_comments` ENABLE KEYS */;
 
 
@@ -1041,7 +1052,7 @@ CREATE TABLE `resource_mark` (
   `user_id` int(11) unsigned NOT NULL,
   `mark_type` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `resource_mark`
@@ -1058,6 +1069,7 @@ INSERT INTO `resource_mark` (`id`,`resource_id`,`user_id`,`mark_type`) VALUES
  (7,17,41,'1'),
  (8,18,41,'1'),
  (9,19,41,'bad'),
+ (38,99,41,'good'),
  (37,93,41,'good'),
  (36,98,41,'good'),
  (35,100,41,'bad'),
@@ -1083,7 +1095,7 @@ CREATE TABLE `resource_reminds` (
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`,`has_read`,`create_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `resource_reminds`
@@ -1105,7 +1117,9 @@ INSERT INTO `resource_reminds` (`id`,`user_id`,`resource_id`,`resource_title`,`a
  (13,41,95,'详解check',17,'ffff',12,'发撒旦发生',0,'2012-09-01 18:09:10'),
  (14,41,95,'详解check',17,'ffff',13,'回复tttt：方式地',0,'2012-09-01 18:09:19'),
  (15,3,95,'详解check',19,'方式地方反对',-1,'',0,'2012-09-01 21:11:53'),
- (16,41,101,'test',3,'gggggggggg',14,'非师范',0,'2012-09-02 00:30:00');
+ (16,41,101,'test',3,'gggggggggg',14,'非师范',0,'2012-09-02 00:30:00'),
+ (17,41,100,'test',4,'ffffffffff',15,'上发',0,'2012-09-02 01:36:43'),
+ (18,1,99,'test',26,'速度发',-1,'',0,'2012-09-02 01:40:37');
 /*!40000 ALTER TABLE `resource_reminds` ENABLE KEYS */;
 
 
@@ -1496,14 +1510,14 @@ INSERT INTO `resources` (`id`,`user_id`,`title`,`description`,`file_list`,`creat
  (90,3,'CV的精细写法','写好CV ！','[]','2012-06-24 16:24:32',0,0,0,0,0),
  (91,3,'CV的精细写法','写好CV！','[]','2012-06-24 16:26:11',0,0,0,0,0),
  (92,3,'proposal的写法','zz','[]','2012-06-24 16:27:41',0,0,0,0,0),
- (93,3,'个人简历深入剖析','ZZ','[]','2012-06-24 16:28:26',0,0,1,1,0),
+ (93,3,'个人简历深入剖析','ZZ','[]','2012-06-24 16:28:26',0,2,1,1,0),
  (94,3,'你不知道的明尼苏达 Surprising Facts about Minnesota!','zz','[]','2012-06-24 16:43:14',0,0,0,0,0),
  (95,3,'详解check','zz','[]','2012-06-24 16:48:07',1,3,0,0,0),
  (96,1,'1','1','[{\"name\": \"\\u6d4b\\u8bd5abc123--_--\\u2014\\u2014.png\"}]','2012-06-27 22:18:45',1,0,0,0,0),
  (97,1,'test','test','[{\"name\": \"lufei.jpg\"}, {\"name\": \"lufei1.jpg\"}]','2012-07-11 21:13:59',1,3,0,0,0),
  (98,1,'TEST','test','[{\"name\": \"\\u4e66\\u7b7e_12-3-25_(\\u590d\\u4ef6).txt\"}]','2012-07-11 21:42:36',1,0,1,1,0),
- (99,1,'test','test','[{\"name\": \"\\u4e66\\u7b7e_12-3-25_(\\u590d\\u4ef6).txt\"}]','2012-07-12 20:13:11',1,3,0,0,0),
- (100,1,'test','test','[{\"name\": \"lufei.jpg\"}]','2012-07-12 21:40:37',1,10,-1,0,1),
+ (99,1,'test','test','[{\"name\": \"\\u4e66\\u7b7e_12-3-25_(\\u590d\\u4ef6).txt\"}]','2012-07-12 20:13:11',1,7,1,1,0),
+ (100,1,'test','test','[{\"name\": \"lufei.jpg\"}]','2012-07-12 21:40:37',1,11,-1,0,1),
  (101,1,'test','test','[{\"name\": \"lufei.jpg\"}]','2012-07-15 15:41:59',1,5,1,1,0);
 /*!40000 ALTER TABLE `resources` ENABLE KEYS */;
 
