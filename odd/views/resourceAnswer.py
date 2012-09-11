@@ -38,9 +38,9 @@ def new():
         return jsonify(errno='FAIL')
 
     resource = answer.resource
-    resremind = ResourceRemind(resource.user.id, resource.id, resource.title, 
+    res_remind = Resource_Remind(resource.user.id, resource.id, resource.title, 
                                answer.id, answer.content, -1, '')
-    new_resremind(resremind)
+    new_res_remind(res_remind)
 
     return jsonify(errno='SUCCESS')
 
@@ -62,8 +62,8 @@ def comment():
     user_id = comm.comment.user.id if comm.comment else comm.resourceanswer.user.id
     resanswer = comm.resourceanswer
     res = resanswer.resource
-    resremind = ResourceRemind(user_id, res.id, res.title, resanswer.id, resanswer.content, comm.id, comm.content)
-    new_resremind(resremind)
+    resremind = Resource_Remind(user_id, res.id, res.title, resanswer.id, resanswer.content, comm.id, comm.content)
+    new_res_remind(resremind)
 
     return jsonify(errno='SUCCESS')
 

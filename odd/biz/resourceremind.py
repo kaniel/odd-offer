@@ -11,20 +11,20 @@ from odd.models.resourceremind import *
 from odd.utils.error import *
 
 def get_remind_by_id(id):
-    resremind = db_session.query(ResourceRemind).get(id)
-    return resremind
+    res_remind = db_session.query(Resource_Remind).get(id)
+    return res_remind
 
 def get_unread_reminds(uid):
-    resreminds = db_session.query(ResourceRemind).filter_by(user_id=uid, has_read=False).all()
-    return resreminds
+    res_reminds = db_session.query(Resource_Remind).filter_by(user_id=uid, has_read=False).all()
+    return res_reminds
 
-def new_resremind(resremind):
-    db_session.add(resremind)
+def new_res_remind(res_remind):
+    db_session.add(res_remind)
     db_session.commit()
     return REMIND_ADD_OK
 
-def edit_resremind(resremind):
-    db_session.add(resremind)
+def edit_res_remind(res_remind):
+    db_session.add(res_remind)
     db_session.commit()
     return REMIND_EDIT_OK
 

@@ -31,6 +31,12 @@ ANSWER_UP_DUPLICATE = u'Up已存在'
 ANSWER_DOWN_ADD_OK = u"Down成功"
 ANSWER_DOWN_DUPLICATE = u"Down已存在" 
 
+ANSWER_GOOD_ADD_OK = u"好评成功"
+ANSWER_GOOD_DUPLICATE = u"好评失败"
+
+ANSWER_BAD_ADD_OK = u"差评成功"
+ANSWER_BAD_DUPLICATE = u"差评失败"
+
 COMMENT_ADD_OK = u'评论成功'
 
 TAG_FOLLOW_ADD_OK = u'关注成功'

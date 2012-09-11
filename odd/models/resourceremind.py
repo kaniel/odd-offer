@@ -11,7 +11,7 @@ from odd.data.db import Model
 Created on 2012-8-27
 @author: lucast
 '''
-class ResourceRemind(Model):
+class Resource_Remind(Model):
     __tablename__ = 'resource_reminds'
     
     id = Column('id', INT, primary_key=True)

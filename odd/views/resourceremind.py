@@ -48,6 +48,6 @@ def read():
     
     remind = get_remind_by_id(id)
     remind.has_read = True
-    edit_resremind(remind)
+    edit_res_remind(remind)
     
     return redirect(url_for('resource.index', id=remind.resource_id, answer_id=remind.answer_id, comment_id=remind.comment_id))
